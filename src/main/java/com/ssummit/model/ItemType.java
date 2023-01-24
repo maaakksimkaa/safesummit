@@ -6,13 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name = "roles")
-@Getter
+@Table(name = "item_types")
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class ItemType {
 
     @Id
     @Column(name = "id")
@@ -24,4 +27,7 @@ public class Role {
 
     @Column(name = "description")
     private String description;
+
+    @ManyToMany(mappedBy = "requiredItemTypes", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private Set<Route> routes = new HashSet<>();
 }

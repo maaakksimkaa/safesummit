@@ -39,5 +39,13 @@ public class Route extends GenericModel {
     )
     private Set<Checkpoint> checkpointList = new HashSet<>();
 
-    //TODO поле "список требуемого оборудования типы"
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "required_item_types",
+            joinColumns = @JoinColumn(name = "route_id"),
+            foreignKey =  @ForeignKey(name = "FK_ROUTES_ITEMTYPES"),
+            inverseJoinColumns = @JoinColumn(name = "itemtype_id"),
+            inverseForeignKey = @ForeignKey(name = "FK_ITEMTYPES_ROUTES")
+    )
+    private Set<ItemType> requiredItemTypes = new HashSet<>();
 }
