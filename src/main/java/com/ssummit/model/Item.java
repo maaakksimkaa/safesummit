@@ -41,7 +41,8 @@ public class Item extends GenericModel {
     @Column(name = "is_verifiable")
     private boolean isVerifiable;
 
-    //TODO добавить поле "интервал поверки"
+    @Column(name = "verification_interval")
+    private Date verificationInterval;
 
     @Column(name = "latest_verification_date")
     private Date latestVerificationDate;
@@ -49,5 +50,6 @@ public class Item extends GenericModel {
     @Column(name = "expiration_date")
     private Date expirationDate;
 
-    //TODO добавить поле "документ о поверке"
+    @Column(name = "verification_certificate")
+    private String verificationCertificate;
 }
