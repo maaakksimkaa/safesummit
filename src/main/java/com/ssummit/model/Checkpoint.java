@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "checkpoints")
 @Setter
@@ -29,6 +26,4 @@ public class Checkpoint extends GenericModel {
     @Column(name = "longitude")
     private Double longitude;
 
-    @ManyToMany(mappedBy = "checkpointList", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private Set<Route> routes = new HashSet<>();
 }

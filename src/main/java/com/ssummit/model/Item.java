@@ -52,4 +52,7 @@ public class Item extends GenericModel {
 
     @Column(name = "verification_certificate")
     private String verificationCertificate;
+
+    @Column(name = "available")
+    private boolean available;
 }

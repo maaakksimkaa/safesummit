@@ -68,7 +68,17 @@ public class Tour extends GenericModel {
     )
     private TourApplication tourApplication;
 
-    //TODO добавить поле "вещи в поход"
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = "tour_equipment_id",
+            foreignKey = @ForeignKey(name = "FK_TOUR_TOUR_EQUIPMENT")
+    )
+    private TourEquipment tourEquipment;
 
-    //TODO добавить поле "чек контрольных точек"
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "tour_checkpoint_marks",
+            foreignKey = @ForeignKey(name = "FK_TOURS_CHECKPOINT_MARKS")
+    )
+    private Set<CheckpointMark> checkpointMarks = new HashSet<>();
 }
