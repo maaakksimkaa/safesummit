@@ -10,7 +10,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemTypeDto {
+public class ItemTypeDto extends GenericDto {
 
     private Long id;
     private String title;

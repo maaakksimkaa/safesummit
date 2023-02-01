@@ -13,12 +13,12 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemType {
+public class ItemType extends GenericModel{
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+//    @Id
+//    @Column(name = "id")
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private Long id;
 
     @Column(name = "title")
     private String title;
