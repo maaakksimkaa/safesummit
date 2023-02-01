@@ -1,0 +1,18 @@
+package com.ssummit.dto;
+
+import com.ssummit.model.Item;
+import lombok.*;
+
+import java.util.Date;
+import java.util.Set;
+
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class TourEquipmentDto extends GenericDto{
+
+    private Set<Item> itemList;
+    private Date dateOfIssue;
+}

@@ -1,10 +1,7 @@
 package com.ssummit.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.Set;
@@ -15,12 +12,8 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TourEquipment {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@SequenceGenerator(name = "default_generator", sequenceName = "tourequipments_seq", allocationSize = 1)
+public class TourEquipment extends GenericModel{
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -31,4 +24,11 @@ public class TourEquipment {
 
     @Column(name = "date_of_issue")
     private Date dateOfIssue;
+
+//    @Builder
+//    public TourEquipment(Long id, Set<Item> itemList, Date dateOfIssue) {
+//        this.id = id;
+//        this.itemList = itemList;
+//        this.dateOfIssue = dateOfIssue;
+//    }
 }

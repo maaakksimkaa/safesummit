@@ -1,11 +1,9 @@
 package com.ssummit.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +13,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(name = "default_generatior", sequenceName = "routes_seq", allocationSize = 1)
 public class Route extends GenericModel {
 
     @Column(name = "title")
@@ -45,4 +44,17 @@ public class Route extends GenericModel {
             inverseForeignKey = @ForeignKey(name = "FK_ITEMTYPES_ROUTES")
     )
     private Set<ItemType> requiredItemTypes = new HashSet<>();
+
+    @Builder
+    public Route(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
+                 boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
+                 Integer duration, String category, Set<Checkpoint> checkpoints, Set<ItemType> requiredItemTypes) {
+        super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
+        this.title = title;
+        this.description = description;
+        this.duration = duration;
+        this.category = category;
+        this.checkpoints = checkpoints;
+        this.requiredItemTypes = requiredItemTypes;
+    }
 }
