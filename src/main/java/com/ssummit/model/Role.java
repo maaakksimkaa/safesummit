@@ -1,7 +1,7 @@
 package com.ssummit.model;
 
 import com.ssummit.dto.RoleDto;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Entity

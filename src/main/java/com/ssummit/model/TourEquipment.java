@@ -1,7 +1,10 @@
 package com.ssummit.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.Set;

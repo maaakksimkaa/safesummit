@@ -1,9 +1,6 @@
 package com.ssummit.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;

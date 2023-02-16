@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/rest/checkpoit")
+@RequestMapping("/rest/checkpoint")
 public class CheckpointController extends GenericController<Checkpoint, CheckpointDto> {
 
 	private final CheckpointService service;
