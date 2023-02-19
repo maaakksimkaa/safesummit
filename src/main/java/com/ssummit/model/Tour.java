@@ -1,11 +1,9 @@
 package com.ssummit.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +14,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(name = "default_generator", sequenceName = "tours_seq", allocationSize = 1)
 public class Tour extends GenericModel {
 
     @Column(name = "title")
@@ -24,14 +23,14 @@ public class Tour extends GenericModel {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "primary_guide_user_id",
             foreignKey = @ForeignKey(name = "FK_TOUR_PRIMARYGUIDE")
     )
     private User primaryGuide;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "secondary_guide_user_id",
             foreignKey = @ForeignKey(name = "FK_TOUR_SECONDARYGUIDE")
@@ -81,4 +80,23 @@ public class Tour extends GenericModel {
             foreignKey = @ForeignKey(name = "FK_TOURS_CHECKPOINT_MARKS")
     )
     private Set<CheckpointMark> checkpointMarks = new HashSet<>();
+
+    @Builder
+    public Tour(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
+                boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
+                User primaryGuide, User secondaryGuide, Set<User> participants, Route route, Date startDate, Date endDate,
+                TourApplication tourApplication, TourEquipment tourEquipment, Set<CheckpointMark> checkpointMarks) {
+        super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
+        this.title = title;
+        this.description = description;
+        this.primaryGuide = primaryGuide;
+        this.secondaryGuide = secondaryGuide;
+        this.participants = participants;
+        this.route = route;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.tourApplication = tourApplication;
+        this.tourEquipment = tourEquipment;
+        this.checkpointMarks = checkpointMarks;
+    }
 }

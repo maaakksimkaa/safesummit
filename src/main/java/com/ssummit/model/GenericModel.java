@@ -1,6 +1,6 @@
 package com.ssummit.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ public abstract class GenericModel {
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default_genrator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default_generator")
     private Long id;
 
     @Column(name = "created_by")

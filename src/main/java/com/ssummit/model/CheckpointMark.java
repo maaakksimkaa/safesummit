@@ -1,10 +1,7 @@
 package com.ssummit.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(name = "default_generator", sequenceName = "checkpointmarks_deq", allocationSize = 1)
 public class CheckpointMark {
 
     @Id
@@ -33,4 +31,12 @@ public class CheckpointMark {
 
     @Column(name = "actual_marked_time")
     private LocalDateTime actualMarkedTime;
+
+//    @Builder
+//    public CheckpointMark(Long id, Checkpoint checkpoint, LocalDateTime scheduledMarkedTime, LocalDateTime actualMarkedTime) {
+//        this.id = id;
+//        this.checkpoint = checkpoint;
+//        this.scheduledMarkedTime = scheduledMarkedTime;
+//        this.actualMarkedTime = actualMarkedTime;
+//    }
 }

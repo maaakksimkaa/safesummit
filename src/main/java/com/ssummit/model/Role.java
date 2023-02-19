@@ -1,21 +1,20 @@
 package com.ssummit.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.ssummit.dto.RoleDto;
+import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "roles")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
 
     @Id
-    @Column(name = "id")
+    @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -24,4 +23,10 @@ public class Role {
 
     @Column(name = "description")
     private String description;
+
+    public Role(RoleDto roleDto) {
+        this.id = roleDto.getId();
+        this.title = roleDto.getTitle();
+        this.description = roleDto.getDescription();
+    }
 }

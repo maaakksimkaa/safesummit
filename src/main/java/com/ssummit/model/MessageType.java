@@ -1,15 +1,13 @@
 package com.ssummit.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "message_types")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageType {
@@ -24,4 +22,10 @@ public class MessageType {
 
     @Column(name = "description")
     private String description;
+
+//    public MessageType(MessageTypeDto messageTypeDto) {
+//        this.id = messageTypeDto.getId();
+//        this.title = messageTypeDto.getTitle();
+//        this.description = messageTypeDto.getDescription();
+//    }
 }

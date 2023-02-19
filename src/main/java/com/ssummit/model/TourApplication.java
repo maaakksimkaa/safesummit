@@ -1,13 +1,9 @@
 package com.ssummit.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -16,6 +12,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(name = "default_generator", sequenceName = "tourapplications_seq", allocationSize = 1)
 public class TourApplication extends GenericModel {
 
     @Column(name = "title")
@@ -35,4 +32,18 @@ public class TourApplication extends GenericModel {
 
     @Column(name = "application_registration_date")
     private Date applicationRegistrationDate;
+
+    @Builder
+    public TourApplication(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime,
+                           String updatedBy, boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy,
+                           String title, String desctiption, String outcomingPostNumber, Date applicationDate,
+                           String incomingPostNumber, Date applicationRegistrationDate) {
+        super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
+        this.title = title;
+        this.desctiption = desctiption;
+        this.outcomingPostNumber = outcomingPostNumber;
+        this.applicationDate = applicationDate;
+        this.incomingPostNumber = incomingPostNumber;
+        this.applicationRegistrationDate = applicationRegistrationDate;
+    }
 }

@@ -1,11 +1,9 @@
 package com.ssummit.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -25,7 +23,7 @@ public class Item extends GenericModel {
     @Column(name = "brand")
     private String brand;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "item_type_id",
             foreignKey = @ForeignKey(name = "FK_ITEM_ITEMTYPE")
@@ -55,4 +53,25 @@ public class Item extends GenericModel {
 
     @Column(name = "available")
     private boolean available;
+
+    @Builder
+    public Item(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
+                boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
+                String brand, ItemType itemType, Date manufactureDate, Long inventoryNumber, boolean isVerifiable,
+                Date verificationInterval, Date latestVerificationDate, Date expirationDate, String verificationCertificate,
+                boolean available) {
+        super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
+        this.title = title;
+        this.description = description;
+        this.brand = brand;
+        this.itemType = itemType;
+        this.manufactureDate = manufactureDate;
+        this.inventoryNumber = inventoryNumber;
+        this.isVerifiable = isVerifiable;
+        this.verificationInterval = verificationInterval;
+        this.latestVerificationDate = latestVerificationDate;
+        this.expirationDate = expirationDate;
+        this.verificationCertificate = verificationCertificate;
+        this.available = available;
+    }
 }
