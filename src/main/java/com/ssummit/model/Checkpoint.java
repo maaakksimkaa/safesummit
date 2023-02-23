@@ -4,6 +4,8 @@ import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "checkpoints")
@@ -25,6 +27,8 @@ public class Checkpoint extends GenericModel {
 
     @Column(name = "longitude")
     private Double longitude;
+    @ManyToMany(mappedBy = "requiredItemTypes", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private Set<Route> routes = new HashSet<>();
 
     @Builder
     public Checkpoint(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime,
