@@ -18,4 +18,5 @@ public class UserMapper extends GenericMapper<User, UserDto> {
         this.mapper = mapper;
         this.userRepository = userRepository;
     }
+
 }

@@ -17,7 +17,7 @@ public class TourDto extends GenericDto {
     private String description;
     private User primaryGuide;
     private User secondaryGuide;
-    private Set<User> participants;
+    private Set<Long> participantsIds;
     private Route route;
     private Date startDate;
     private Date endDate;

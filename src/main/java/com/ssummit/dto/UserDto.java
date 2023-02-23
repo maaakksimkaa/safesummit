@@ -1,7 +1,5 @@
 package com.ssummit.dto;
 
-import com.ssummit.model.Role;
-import com.ssummit.model.Tour;
 import lombok.*;
 
 import java.util.Date;
@@ -24,6 +22,6 @@ public class UserDto extends GenericDto {
     private String passportNo;
     private String login;
     private String password;
-    private Role role;
-    private Set<Tour> assignedTours;
+    private RoleDto role;
+    private Set<Long> toursIds;
 }
