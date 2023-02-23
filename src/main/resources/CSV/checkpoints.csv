@@ -1,0 +1,16 @@
+id,created_by,created_timestamp,deleted_by,deleted_timestamp,is_deleted,updated_by,updated_timestamp,description,latitude,longitude,title
+1,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Базовый лагерь,33.125200,85.909090,base_camp
+2,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Подножие горы Каракут юг,33.125210,85.909090,foothills_Karakut_south
+3,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Середина горы Каракут юг,33.125220,85.909090,midlle_karakut_south
+4,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Вершина горы Каракут,33.125225,85.909090,top_karakut
+5,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Смотровая площадка,33.125220,85.909085,Observation_deck
+6,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Горячие источники дикие,33.125210,85.909080,hot_springs_wild
+7,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Горячие купальни с раздевалкой,33.125215,85.909070,hot_springs_dressing
+8,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Водопад Ключника,33.125250,85.909100,waterfall_keymaster
+9,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Парковка квадроциклов,33.125255,85.909100,parking_quad_byke
+10,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Подножие горы Каракут север,33.125250,85.909090,foothills_Karakut_north
+11,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Середина горы Каракут север,33.125230,85.909090,midlle_karakut_north
+12,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Громовое ущелье,33.1252200,85.909070,sight_1
+13,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Пещера пчел,33.125230,85.909060,sigth_2
+14,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Ползущие камни,33.125250,85.909130,sigth_3
+15,ADMIN,2022-01-25 00:00:00.000000,null,,false,null,,Подвесной мост,33.125255,85.909095,sight_4
