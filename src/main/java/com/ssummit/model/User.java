@@ -47,7 +47,7 @@ public class User extends GenericModel {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "role_id",
             foreignKey = @ForeignKey(name = "FK_USER_ROLE")

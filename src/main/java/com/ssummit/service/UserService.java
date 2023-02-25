@@ -16,19 +16,42 @@ public class UserService extends GenericService<User> {
 
 	private final TourRepository tourRepository;
 	private final TourService tourService;
-	private final UserRepository userRepository;
+	private final UserRepository repository;
 	private final RoleRepository roleRepository;
+	private final RoleService roleService;
 
 	protected UserService (UserRepository repository,
 						   TourRepository tourRepository,
 						   TourService tourService,
-						   UserRepository userRepository,
-						   RoleRepository roleRepository){
+						   RoleRepository roleRepository, RoleService roleService){
 		super(repository);
 		this.tourService = tourService;
 		this.tourRepository = tourRepository;
-		this.userRepository = userRepository;
+		this.repository = repository;
 		this.roleRepository = roleRepository;
+		this.roleService = roleService;
+	}
+
+	@Override
+	public User create(User user) {
+		user.setCreatedBy("REGISTRATION");
+		user.setRole(roleService.getOne(2L));
+		//user.setPassword();
+		return repository.save(user);
+	}
+
+	public User createGuide(User user) {
+		user.setCreatedBy("ADMIN");
+		user.setRole(roleService.getOne(3L));
+		//user.setPassword();
+		return repository.save(user);
+	}
+
+	public User createSpectator(User user) {
+		user.setCreatedBy("пользователь" /* должен прописываться пользователь, создавший этого наблюдателя */);
+		user.setRole(roleService.getOne(4L));
+		//user.setPassword();
+		return repository.save(user);
 	}
 
 	public User addTour(AddTourDto addTourDto) {
@@ -46,11 +69,11 @@ public class UserService extends GenericService<User> {
 	}
 
 	public List<User> getAllGuides() {
-		return userRepository.findAllByRole(roleRepository.findById(3L).get()).stream().toList();
+		return repository.findAllByRole(roleService.getOne(3L)).stream().toList();
 	}
 
 	public List<User> getAllParticipants() {
-		return userRepository.findAllByRole(roleRepository.findById(2L).get()).stream().toList();
+		return repository.findAllByRole(roleService.getOne(2L)).stream().toList();
 	}
 
 }
