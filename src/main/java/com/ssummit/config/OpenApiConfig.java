@@ -13,7 +13,7 @@ public class OpenApiConfig {
 		return new OpenAPI()
 				.info(new Info()
 						.description("Сайт для организации походов с оповещениями безопасности")
-						.title("Походник")
+						.title("Safe Summit")
 						.version("0.1 alfa")
 						.contact(new Contact().name("Башта Евгений, Китабов Денис, Данилов Максим")));
 	}

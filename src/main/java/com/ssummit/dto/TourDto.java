@@ -23,5 +23,5 @@ public class TourDto extends GenericDto {
     private Date endDate;
     private TourApplication tourApplication;
     private TourEquipment tourEquipment;
-    private Set<CheckpointMark> checkpointMarks;
+    private Set<Long> checkpointMarksIds;
 }

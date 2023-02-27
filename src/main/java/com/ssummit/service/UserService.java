@@ -35,6 +35,7 @@ public class UserService extends GenericService<User> {
 	@Override
 	public User create(User user) {
 		user.setCreatedBy("REGISTRATION");
+		user.setDeleted(false);
 		user.setRole(roleService.getOne(2L));
 		//user.setPassword();
 		return repository.save(user);
@@ -42,6 +43,7 @@ public class UserService extends GenericService<User> {
 
 	public User createGuide(User user) {
 		user.setCreatedBy("ADMIN");
+		user.setDeleted(false);
 		user.setRole(roleService.getOne(3L));
 		//user.setPassword();
 		return repository.save(user);
@@ -49,6 +51,7 @@ public class UserService extends GenericService<User> {
 
 	public User createSpectator(User user) {
 		user.setCreatedBy("пользователь" /* должен прописываться пользователь, создавший этого наблюдателя */);
+		user.setDeleted(false);
 		user.setRole(roleService.getOne(4L));
 		//user.setPassword();
 		return repository.save(user);

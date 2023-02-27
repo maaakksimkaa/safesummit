@@ -1,10 +1,13 @@
 package com.ssummit.rest.controller;
 
+import com.ssummit.dto.AddCheckpointToRouteDto;
 import com.ssummit.dto.RouteDto;
 import com.ssummit.mapper.RouteMapper;
 import com.ssummit.model.Route;
 import com.ssummit.service.RouteService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,4 +24,9 @@ public class RouteController extends GenericController<Route, RouteDto> {
 		this.service = service;
 	}
 
+	@Operation(description = "Добавить контрольную точку к маршруту")
+	@PostMapping("/route-add-checkpoint")
+	public RouteDto addCheckpoint(AddCheckpointToRouteDto addCheckpointToRouteDto) {
+		return mapper.toDto(service.addCheckpoint(addCheckpointToRouteDto));
+	}
 }

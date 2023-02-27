@@ -13,5 +13,5 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserWithToursDto extends UserDto {
 
-    private Set<TourDto> tours;
+    private Set<TourDto> assignedTours;
 }

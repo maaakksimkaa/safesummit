@@ -1,9 +1,6 @@
 package com.ssummit.rest.controller;
 
-import com.ssummit.dto.AddRouteDto;
-import com.ssummit.dto.AddTourDto;
-import com.ssummit.dto.TourDto;
-import com.ssummit.dto.TourGuidesAndParticipantsDto;
+import com.ssummit.dto.*;
 import com.ssummit.mapper.TourGuidesAndParticipantsMapper;
 import com.ssummit.mapper.TourMapper;
 import com.ssummit.mapper.TourWithUsersMapper;
@@ -68,6 +65,12 @@ public class TourController extends GenericController<Tour, TourDto> {
 		return mapper.toDto(service.setRoute(addRouteDto));
 	}
 
+	@Operation(description = "Добавить время прохождения контрольной точки")
+	@PostMapping("/tour-set-checkpoint-scheduled-marked-time")
+	public TourDto addCheckpointMark(@RequestBody AddCheckpointMarkDto addCheckpointMarkDto) {
+		return mapper.toDto(service.addCheckpointMark(addCheckpointMarkDto));
+	}
+
 	@Operation(description = "Просмотреть список контрольных точек похода")
 	@GetMapping("/tour_checkpoints_marks/{tourId}")
 	public Set<CheckpointMark> getCheckpointsMarks(@PathVariable Long tourId) {
@@ -84,5 +87,11 @@ public class TourController extends GenericController<Tour, TourDto> {
 	@GetMapping("/tour-get-guides-and-participants/{tourId}")
 	public TourGuidesAndParticipantsDto getGuidesAndParticipants(@PathVariable Long tourId) {
 		return tourGuidesAndParticipantsMapper.toDto(service.getOne(tourId));
+	}
+
+	@Operation(description = "Просмотреть список контрольных точек на маршруте тура")
+	@GetMapping("/tour-route-checkpoints/{tourId}")
+	public Set<String> getRouteCheckpoints(@PathVariable Long tourId) {
+		return service.getRouteCheckpoints(tourId);
 	}
 }

@@ -54,7 +54,14 @@ public class User extends GenericModel {
     )
     private Role role;
 
-    @ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "tour_participants",
+            joinColumns = @JoinColumn(name = "user_id"),
+            foreignKey =  @ForeignKey(name = "FK_USERS_TOURS"),
+            inverseJoinColumns = @JoinColumn(name = "tour_id"),
+            inverseForeignKey = @ForeignKey(name = "FK_TOURS_USERS")
+    )
     private Set<Tour> assignedTours = new HashSet<>();
 
     @Builder
