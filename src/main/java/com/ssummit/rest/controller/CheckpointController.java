@@ -4,6 +4,7 @@ import com.ssummit.dto.CheckpointDto;
 import com.ssummit.mapper.CheckpointMapper;
 import com.ssummit.model.Checkpoint;
 import com.ssummit.service.CheckpointService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/rest/checkpoint")
+@SecurityRequirement(name = "Bearer Authentication")
+@RequestMapping("/checkpoint")
 public class CheckpointController extends GenericController<Checkpoint, CheckpointDto> {
 
 	private final CheckpointService service;

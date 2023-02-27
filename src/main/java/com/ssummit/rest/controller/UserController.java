@@ -7,6 +7,7 @@ import com.ssummit.mapper.UserMapper;
 import com.ssummit.mapper.UserWithToursMapper;
 import com.ssummit.model.User;
 import com.ssummit.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/rest/user")
+@SecurityRequirement(name = "Bearer Authentication")
+@RequestMapping("/user")
 public class UserController extends GenericController<User, UserDto> {
 	private final UserService service;
 	private final UserWithToursMapper userWithToursMapper;

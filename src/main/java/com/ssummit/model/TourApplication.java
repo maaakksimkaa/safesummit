@@ -35,7 +35,7 @@ public class TourApplication extends GenericModel {
 
     @Builder
     public TourApplication(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime,
-                           String updatedBy, boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy,
+                           String updatedBy, Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy,
                            String title, String desctiption, String outcomingPostNumber, Date applicationDate,
                            String incomingPostNumber, Date applicationRegistrationDate) {
         super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);

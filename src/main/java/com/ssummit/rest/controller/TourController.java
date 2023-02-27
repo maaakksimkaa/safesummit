@@ -7,6 +7,7 @@ import com.ssummit.mapper.TourWithUsersMapper;
 import com.ssummit.model.Tour;
 import com.ssummit.model.TourEquipment;
 import com.ssummit.service.TourService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import com.ssummit.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/rest/tour")
+@RequestMapping("/tour")
+@SecurityRequirement(name = "Bearer Authentication")
 public class TourController extends GenericController<Tour, TourDto> {
 	private final TourService service;
 	private final TourWithUsersMapper tourWithUsersMapper;

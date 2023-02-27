@@ -13,4 +13,6 @@ public interface UserRepository extends GenericRepository<User> {
 
     Set<User> findAllByRole(Role role);
 
+    User findUserByLogin(String login);
+    Boolean existsByLogin(String login);
 }

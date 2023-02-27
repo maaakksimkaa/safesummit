@@ -29,7 +29,7 @@ public class Message extends GenericModel{
 
     @Builder
     public Message(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
-                   boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
+                   Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
                    MessageType messageType) {
         super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
         this.title = title;

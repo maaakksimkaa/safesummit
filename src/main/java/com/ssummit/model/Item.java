@@ -56,7 +56,7 @@ public class Item extends GenericModel {
 
     @Builder
     public Item(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
-                boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
+                Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
                 String brand, ItemType itemType, Date manufactureDate, Long inventoryNumber, boolean isVerifiable,
                 Date verificationInterval, Date latestVerificationDate, Date expirationDate, String verificationCertificate,
                 boolean available) {
