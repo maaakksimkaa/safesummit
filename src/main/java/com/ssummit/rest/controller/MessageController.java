@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SecurityRequirement(name = "Bearer Authentication")
 @RequestMapping("/message")
-public class MessageController extends GenericController<Message, MessageDto> {
+public class MessageController {
 	private final MessageService service;
 	private final MessageMapper mapper;
 
 	public MessageController(MessageService service, MessageMapper mapper) {
-		super(service, mapper);
+
 		this.mapper = mapper;
 		this.service = service;
 	}

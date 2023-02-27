@@ -2,6 +2,7 @@ package com.ssummit.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -14,7 +15,7 @@ public class TourApplicationDto extends GenericDto {
     private String title;
     private String desctiption;
     private String outcomingPostNumber;
-    private Date applicationDate;
+    private LocalDate applicationDate;
     private String incomingPostNumber;
-    private Date applicationRegistrationDate;
+    private LocalDate applicationRegistrationDate;
 }

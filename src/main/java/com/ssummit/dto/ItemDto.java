@@ -3,6 +3,7 @@ package com.ssummit.dto;
 import com.ssummit.model.ItemType;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -16,12 +17,12 @@ public class ItemDto extends GenericDto{
     private String description;
     private String brand;
     private ItemType itemType;
-    private Date manufactureDate;
+    private LocalDate manufactureDate;
     private Long inventoryNumber;
     private boolean isVerifiable;
-    private Date verificationInterval;
-    private Date latestVerificationDate;
-    private Date expirationDate;
+    private Integer verificationInterval;
+    private LocalDate latestVerificationDate;
+    private LocalDate expirationDate;
     private String verificationCertificate;
     private boolean available;
 }

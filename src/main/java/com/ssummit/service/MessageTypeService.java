@@ -20,6 +20,9 @@ public class MessageTypeService {
 	public MessageType getOne(Long id) {
 		return repository.findById(id).orElseThrow();
 	}
+	public String getMessageTypeDescription(Long id) {
+		return getOne(id).getDescription();
+	}
 
 }
 

@@ -3,6 +3,7 @@ package com.ssummit.model;
 import javax.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -25,19 +26,19 @@ public class TourApplication extends GenericModel {
     private String outcomingPostNumber;
 
     @Column(name = "application_date")
-    private Date applicationDate;
+    private LocalDate applicationDate;
 
     @Column(name = "incoming_post_number")
     private String incomingPostNumber;
 
     @Column(name = "application_registration_date")
-    private Date applicationRegistrationDate;
+    private LocalDate applicationRegistrationDate;
 
     @Builder
     public TourApplication(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime,
                            String updatedBy, Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy,
-                           String title, String desctiption, String outcomingPostNumber, Date applicationDate,
-                           String incomingPostNumber, Date applicationRegistrationDate) {
+                           String title, String desctiption, String outcomingPostNumber, LocalDate applicationDate,
+                           String incomingPostNumber, LocalDate applicationRegistrationDate) {
         super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
         this.title = title;
         this.desctiption = desctiption;

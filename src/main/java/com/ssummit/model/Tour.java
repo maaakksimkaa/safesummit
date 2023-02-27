@@ -3,6 +3,7 @@ package com.ssummit.model;
 import javax.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
@@ -55,10 +56,10 @@ public class Tour extends GenericModel {
     private Route route;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDateTime startDate;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDateTime endDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -84,7 +85,7 @@ public class Tour extends GenericModel {
     @Builder
     public Tour(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
                 Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
-                User primaryGuide, User secondaryGuide, Set<User> participants, Route route, Date startDate, Date endDate,
+                User primaryGuide, User secondaryGuide, Set<User> participants, Route route, LocalDateTime startDate, LocalDateTime endDate,
                 TourApplication tourApplication, TourEquipment tourEquipment, Set<CheckpointMark> checkpointMarks) {
         super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
         this.title = title;

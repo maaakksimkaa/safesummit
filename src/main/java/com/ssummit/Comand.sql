@@ -2,32 +2,33 @@ create table roles
 (
     id          bigint not null
         primary key,
-    description varchar(255),
+    description text,
     title       varchar(255)
 );
 
 create table users
 (
-    id                bigint       not null
+    id                    bigint       not null
         primary key,
-    created_by        varchar(255),
-    created_timestamp timestamp(6),
-    deleted_by        varchar(255),
-    deleted_timestamp timestamp(6),
-    is_deleted        boolean,
-    updated_by        varchar(255),
-    updated_timestamp timestamp(6),
-    address           varchar(255),
-    birth_date        timestamp(6),
-    email             varchar(255),
-    first_name        varchar(255),
-    last_name         varchar(255),
-    login             varchar(255) not null,
-    middle_name       varchar(255),
-    passport_no       varchar(255),
-    password          varchar(255) not null,
-    phone             varchar(255),
-    role_id           bigint
+    created_by            varchar(255),
+    created_timestamp     timestamp(6),
+    deleted_by            varchar(255),
+    deleted_timestamp     timestamp(6),
+    is_deleted            boolean,
+    updated_by            varchar(255),
+    updated_timestamp     timestamp(6),
+    address               text,
+    birth_date            date,
+    email                 varchar(255),
+    first_name            varchar(255),
+    last_name             varchar(255),
+    login                 varchar(255) not null,
+    middle_name           varchar(255),
+    passport_no           varchar(255),
+    password              varchar(255) not null,
+    phone                 varchar(255),
+    change_password_token varchar(255),
+    role_id               bigint
         constraint fk_user_role
             references roles
 );
@@ -35,7 +36,7 @@ create table message_types
 (
     id          bigint not null
         primary key,
-    description varchar(255),
+    description text,
     title       varchar(255)
 );
 create table messages
@@ -44,12 +45,7 @@ create table messages
         primary key,
     created_by        varchar(255),
     created_timestamp timestamp(6),
-    deleted_by        varchar(255),
-    deleted_timestamp timestamp(6),
-    is_deleted        boolean,
-    updated_by        varchar(255),
-    updated_timestamp timestamp(6),
-    description       varchar(255),
+    description       text,
     title             varchar(255),
     message_type_id   bigint
         constraint fk_message_messagetype
@@ -66,7 +62,7 @@ create table checkpoints
     is_deleted        boolean,
     updated_by        varchar(255),
     updated_timestamp timestamp(6),
-    description       varchar(255),
+    description       text,
     latitude          double precision,
     longitude         double precision,
     title             varchar(255)
@@ -93,8 +89,8 @@ create table routes
     updated_by        varchar(255),
     updated_timestamp timestamp(6),
     category          varchar(255),
-    description       varchar(255),
-    duration          integer,
+    description       text,
+    duration          interval day,
     title             varchar(255)
 
 );
@@ -109,9 +105,9 @@ create table tour_applications
     is_deleted                    boolean,
     updated_by                    varchar(255),
     updated_timestamp             timestamp(6),
-    application_date              timestamp(6),
-    application_registration_date timestamp(6),
-    description                   varchar(255),
+    application_date              date,
+    application_registration_date date,
+    description                   text,
     incoming_post_number          varchar(255),
     outcoming_post_number         varchar(255),
     title                         varchar(255)
@@ -140,7 +136,7 @@ create table item_types
     is_deleted        boolean,
     updated_by        varchar(255),
     updated_timestamp timestamp(6),
-    description       varchar(255),
+    description       text,
     title             varchar(255)
 );
 create table items
@@ -156,15 +152,15 @@ create table items
     updated_timestamp        timestamp(6),
     available                boolean,
     brand                    varchar(255),
-    description              varchar(255),
-    expiration_date          timestamp(6),
+    description              text,
+    expiration_date          date,
     inventory_number         bigint,
     is_verifiable            boolean,
-    latest_verification_date timestamp(6),
-    manufacture_date         timestamp(6),
+    latest_verification_date date,
+    manufacture_date         date,
     title                    varchar(255),
     verification_certificate varchar(255),
-    verification_interval    timestamp(6),
+    verification_interval    interval month,
     item_type_id             bigint
         constraint fk_item_itemtype
             references item_types,
@@ -183,7 +179,7 @@ create table tours
     is_deleted              boolean,
     updated_by              varchar(255),
     updated_timestamp       timestamp(6),
-    description             varchar(255),
+    description             text,
     end_date                timestamp(6),
     start_date              timestamp(6),
     title                   varchar(255),

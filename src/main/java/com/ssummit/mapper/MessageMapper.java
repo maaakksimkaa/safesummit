@@ -7,14 +7,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MessageMapper extends GenericMapper<Message, MessageDto> {
+public class MessageMapper {
 
     private final ModelMapper mapper;
 
     private final MessageRepository messageRepository;
 
     protected MessageMapper(ModelMapper mapper, MessageRepository messageRepository) {
-        super(mapper, Message.class, MessageDto.class);
+
         this.mapper = mapper;
         this.messageRepository = messageRepository;
     }

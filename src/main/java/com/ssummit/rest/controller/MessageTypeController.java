@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/message-type")
 public class MessageTypeController {
 	private final MessageTypeService service;
-
 	public MessageTypeController(MessageTypeService service) {
 		this.service = service;
 	}
@@ -22,4 +21,5 @@ public class MessageTypeController {
 	public List<MessageType> list() {
 		return service.getList();
 	}
+
 }

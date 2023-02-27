@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class TourEquipment extends GenericModel{
     private Set<Item> itemList;
 
     @Column(name = "date_of_issue")
-    private Date dateOfIssue;
+    private LocalDate dateOfIssue;
 
 //    @Builder
 //    public TourEquipment(Long id, Set<Item> itemList, Date dateOfIssue) {

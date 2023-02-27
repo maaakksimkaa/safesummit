@@ -20,7 +20,7 @@ public class RoleController {
 		this.service = service;
 	}
 
-	@GetMapping("/list") //localhost:9090/role/list
+	@GetMapping("/list")
 	public List<Role> list() {
 		return service.getList();
 	}

@@ -1,9 +1,11 @@
 package com.ssummit.model;
 
-import javax.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.hibernate.type.Type;
 import java.util.Date;
 
 @Entity
@@ -31,7 +33,7 @@ public class Item extends GenericModel {
     private ItemType itemType;
 
     @Column(name = "manufacture_date")
-    private Date manufactureDate;
+    private LocalDate manufactureDate;
 
     @Column(name = "inventory_number")
     private Long inventoryNumber;
@@ -39,14 +41,15 @@ public class Item extends GenericModel {
     @Column(name = "is_verifiable")
     private boolean isVerifiable;
 
+
     @Column(name = "verification_interval")
-    private Date verificationInterval;
+    private int verificationInterval;
 
     @Column(name = "latest_verification_date")
-    private Date latestVerificationDate;
+    private LocalDate latestVerificationDate;
 
     @Column(name = "expiration_date")
-    private Date expirationDate;
+    private LocalDate expirationDate;
 
     @Column(name = "verification_certificate")
     private String verificationCertificate;
@@ -57,8 +60,8 @@ public class Item extends GenericModel {
     @Builder
     public Item(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
                 Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
-                String brand, ItemType itemType, Date manufactureDate, Long inventoryNumber, boolean isVerifiable,
-                Date verificationInterval, Date latestVerificationDate, Date expirationDate, String verificationCertificate,
+                String brand, ItemType itemType, LocalDate manufactureDate, Long inventoryNumber, boolean isVerifiable,
+                int verificationInterval, LocalDate latestVerificationDate, LocalDate expirationDate, String verificationCertificate,
                 boolean available) {
         super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
         this.title = title;

@@ -1,9 +1,10 @@
 package com.ssummit.model;
 
 
-import javax.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
@@ -18,62 +19,63 @@ import java.util.Set;
 @SequenceGenerator(name = "default_generator", sequenceName = "user_seq", allocationSize = 1)
 public class User extends GenericModel {
 
-    @Column(name = "first_name")
-    private String firstName;
+	@Column(name = "first_name")
+	private String firstName;
 
-    @Column(name = "middle_name")
-    private String middleName;
+	@Column(name = "middle_name")
+	private String middleName;
 
-    @Column(name = "last_name")
-    private String lastName;
-    @Column(name = "birth_date")
-    private Date birthDate;
+	@Column(name = "last_name")
+	private String lastName;
+	@Column(name = "birth_date")
+	private LocalDate birthDate;
 
-    @Column(name = "phone")
-    private String phone;
+	@Column(name = "phone")
+	private String phone;
 
-    @Column(name = "email")
-    private String email;
+	@Column(name = "email")
+	private String email;
 
-    @Column(name = "address")
-    private String address;
+	@Column(name = "address")
+	private String address;
 
-    @Column(name = "passport_no")
-    private String passportNo;
+	@Column(name = "passport_no")
+	private String passportNo;
 
-    @Column(name = "login", nullable = false)
-    private String login;
+	@Column(name = "login", nullable = false)
+	private String login;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+	@Column(name = "password", nullable = false)
+	private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "role_id",
-            foreignKey = @ForeignKey(name = "FK_USER_ROLE")
-    )
-    private Role role;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "role_id",
+			foreignKey = @ForeignKey(name = "FK_USER_ROLE")
+	)
+	private Role role;
 
-    @ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private Set<Tour> assignedTours = new HashSet<>();
+	@ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+	private Set<Tour> assignedTours = new HashSet<>();
+	@Column(name = "change_password_token")
+	private String changePasswordToken;
 
-    @Builder
-    public User(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
-                Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String firstName, String middleName,
-                String lastName, Date birthDate, String phone, String email, String address, String passportNo, String login,
-                String password, Role role) {
-        super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.birthDate = birthDate;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.passportNo = passportNo;
-        this.login = login;
-        this.password = password;
-        this.role = role;
-    }
-
+	@Builder
+	public User(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
+	            boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String firstName, String middleName,
+	            String lastName, LocalDate birthDate, String phone, String email, String address, String passportNo, String login,
+	            String password, Role role) {
+		super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.birthDate = birthDate;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.passportNo = passportNo;
+		this.login = login;
+		this.password = password;
+		this.role = role;
+	}
 }

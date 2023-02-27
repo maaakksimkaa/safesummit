@@ -12,8 +12,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SequenceGenerator(name = "default_generator", sequenceName = "message_seq", allocationSize = 1)
-public class Message extends GenericModel{
+public class Message{
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default_generator")
+    private Long id;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "created_timestamp")
+    private LocalDateTime createdDateTime;
     @Column(name = "title")
     private String title;
 
@@ -31,7 +40,6 @@ public class Message extends GenericModel{
     public Message(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
                    Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
                    MessageType messageType) {
-        super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
         this.title = title;
         this.description = description;
         this.messageType = messageType;

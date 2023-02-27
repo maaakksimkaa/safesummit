@@ -1,8 +1,9 @@
 package com.ssummit.repository;
 
 import com.ssummit.model.Message;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MessageRepository extends GenericRepository<Message> {
+public interface MessageRepository extends JpaRepository<Message, Long> {
 }
