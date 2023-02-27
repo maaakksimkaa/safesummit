@@ -33,7 +33,7 @@ public abstract class GenericModel {
     private String updatedBy;
 
     @Column(name = "is_deleted")
-    private boolean isDeleted;
+    private Boolean isDeleted;
 
     @Column(name = "deleted_timestamp")
     private LocalDateTime deletedDateTime;

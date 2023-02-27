@@ -47,7 +47,7 @@ public class Route extends GenericModel {
 
     @Builder
     public Route(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
-                 boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
+                 Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
                  Integer duration, String category, Set<Checkpoint> checkpoints, Set<ItemType> requiredItemTypes) {
         super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
         this.title = title;

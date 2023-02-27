@@ -59,7 +59,7 @@ public class User extends GenericModel {
 
     @Builder
     public User(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
-                boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String firstName, String middleName,
+                Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String firstName, String middleName,
                 String lastName, Date birthDate, String phone, String email, String address, String passportNo, String login,
                 String password, Role role) {
         super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
@@ -75,4 +75,5 @@ public class User extends GenericModel {
         this.password = password;
         this.role = role;
     }
+
 }

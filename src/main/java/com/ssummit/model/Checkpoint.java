@@ -28,7 +28,7 @@ public class Checkpoint extends GenericModel {
 
     @Builder
     public Checkpoint(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime,
-                      String updatedBy, boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title,
+                      String updatedBy, Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title,
                       String description, Double latitude, Double longitude) {
         super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
         this.title = title;

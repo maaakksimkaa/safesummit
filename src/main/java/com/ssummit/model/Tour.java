@@ -83,7 +83,7 @@ public class Tour extends GenericModel {
 
     @Builder
     public Tour(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
-                boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
+                Boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
                 User primaryGuide, User secondaryGuide, Set<User> participants, Route route, Date startDate, Date endDate,
                 TourApplication tourApplication, TourEquipment tourEquipment, Set<CheckpointMark> checkpointMarks) {
         super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
