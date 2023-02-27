@@ -25,14 +25,34 @@ import java.util.Objects;
 @RequestMapping("/user")
 public class UserController extends GenericController<User, UserDto> {
 	private final UserService service;
+	private final UserMapper mapper;
 	private final UserWithToursMapper userWithToursMapper;
 	private final UserMapper userMapper;
 
 	public UserController(UserService service, UserMapper mapper, UserWithToursMapper userWithToursMapper, UserMapper userMapper) {
 		super(service, mapper);
 		this.service = service;
+		this.mapper = mapper;
 		this.userWithToursMapper = userWithToursMapper;
 		this.userMapper = userMapper;
+	}
+
+	@PostMapping("/registration")
+	public String registration(@RequestBody UserDto userDto) {
+		service.create(mapper.toEntity(userDto));
+		return "Регистрация успешна!";
+	}
+
+	@PostMapping("/create-guide")
+	public String createGuide(@RequestBody UserDto userDto) {
+		service.createGuide(mapper.toEntity(userDto));
+		return "Гид создан успешно!";
+	}
+
+	@PostMapping("/create-spectator")
+	public String createSpectator(@RequestBody UserDto userDto) {
+		service.createSpectator(mapper.toEntity(userDto));
+		return "Зритель создан успешно!";
 	}
 
 	@Operation(description = "Зарегистрироваться на тур")

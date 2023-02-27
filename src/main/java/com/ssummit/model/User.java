@@ -48,12 +48,12 @@ public class User extends GenericModel {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(
-			name = "role_id",
-			foreignKey = @ForeignKey(name = "FK_USER_ROLE")
-	)
-	private Role role;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = "role_id",
+            foreignKey = @ForeignKey(name = "FK_USER_ROLE")
+    )
+    private Role role;
 
 	@ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
 	private Set<Tour> assignedTours = new HashSet<>();
