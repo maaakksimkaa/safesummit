@@ -29,6 +29,7 @@ public class UserWithToursMapper extends GenericMapper<User, UserWithToursDto> {
     public void setupMapper() {
         mapper.createTypeMap(User.class, UserWithToursDto.class)
                 .addMappings(m -> m.skip(UserWithToursDto::setAssignedToursIds)).setPostConverter(toDtoConverter());
+                //.addMappings(m -> m.skip(UserWithToursDto::setTours)).setPostConverter(toDtoConverter());
         mapper.createTypeMap(UserWithToursDto.class, User.class)
                 .addMappings(m -> m.skip(User::setAssignedTours)).setPostConverter(toEntityConverter());
     }

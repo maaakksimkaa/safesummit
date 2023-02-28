@@ -1,7 +1,5 @@
 package com.ssummit.mapper;
 
-import com.ssummit.dto.CheckpointMarkDto;
-import com.ssummit.model.CheckpointMark;
 import com.ssummit.repository.CheckpointMarkRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

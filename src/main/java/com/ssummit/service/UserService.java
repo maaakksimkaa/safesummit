@@ -22,16 +22,25 @@ public class UserService extends GenericService<User> {
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final TourRepository tourRepository;
 	private final TourService tourService;
+	private final UserRepository repository;
 	private final RoleRepository roleRepository;
 	private final JavaMailSender javaMailSender;
 	private final RoleService roleService;
 
-	public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, TourRepository tourRepository, TourService tourService, RoleRepository roleRepository, JavaMailSender javaMailSender) {
-		super(userRepository);
+//	public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, TourRepository tourRepository, TourService tourService, RoleRepository roleRepository, JavaMailSender javaMailSender) {
+//		super(userRepository);
+//		this.userRepository = userRepository;
+//		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	protected UserService (UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository repository,
+						   TourRepository tourRepository,
+						   TourService tourService,
+						   RoleRepository roleRepository, RoleService roleService, JavaMailSender javaMailSender){
+		super(repository);
 		this.userRepository = userRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 		this.tourRepository = tourRepository;
 		this.tourService = tourService;
+		this.repository = repository;
 		this.roleRepository = roleRepository;
 		this.javaMailSender = javaMailSender;
 		this.roleService = roleService;
@@ -40,6 +49,7 @@ public class UserService extends GenericService<User> {
 	@Override
 	public User create(User user) {
 		user.setCreatedBy("REGISTRATION");
+		user.setIsDeleted(false);
 		user.setRole(roleService.getOne(2L));
 		//user.setPassword();
 		return repository.save(user);
@@ -47,6 +57,7 @@ public class UserService extends GenericService<User> {
 
 	public User createGuide(User user) {
 		user.setCreatedBy("ADMIN");
+		user.setIsDeleted(false);
 		user.setRole(roleService.getOne(3L));
 		//user.setPassword();
 		return repository.save(user);
@@ -54,11 +65,11 @@ public class UserService extends GenericService<User> {
 
 	public User createSpectator(User user) {
 		user.setCreatedBy("пользователь" /* должен прописываться пользователь, создавший этого наблюдателя */);
+		user.setIsDeleted(false);
 		user.setRole(roleService.getOne(4L));
 		//user.setPassword();
 		return repository.save(user);
 	}
-
 
 	public User addTour(AddTourDto addTourDto) {
 		User user = getOne(addTourDto.getUserId());

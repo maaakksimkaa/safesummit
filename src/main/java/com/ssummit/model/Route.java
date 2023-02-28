@@ -34,7 +34,7 @@ public class Route extends GenericModel {
 			name = "route_checkpoints",
 			joinColumns = @JoinColumn(name = "route_id"),
 			foreignKey = @ForeignKey(name = "FK_ROUTES_CHECKPOINTS"),
-			inverseJoinColumns = @JoinColumn(name = "checkpoit_id"),
+			inverseJoinColumns = @JoinColumn(name = "checkpoint_id"),
 			inverseForeignKey = @ForeignKey(name = "FK_CHECKPOINTS_ROUTES")
 
 	)
@@ -53,13 +53,13 @@ public class Route extends GenericModel {
 	@Builder
 	public Route(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
 	             boolean isDeleted, LocalDateTime deletedDateTime, String deletedBy, String title, String description,
-	             Integer duration, String category, Set<Checkpoint> checkpoints, Set<ItemType> requiredItemTypes) {
+	             Integer duration, String category, Set<Checkpoint> routeCheckpoints, Set<ItemType> requiredItemTypes) {
 		super(id, createdBy, createdDateTime, updatedDateTime, updatedBy, isDeleted, deletedDateTime, deletedBy);
 		this.title = title;
 		this.description = description;
 		this.duration = duration;
 		this.category = category;
-		this.routeCheckpoints = checkpoints;
+		this.routeCheckpoints = routeCheckpoints;
 		this.requiredItemTypes = requiredItemTypes;
 	}
 }

@@ -1,6 +1,5 @@
 package com.ssummit.dto;
 
-import com.ssummit.model.Checkpoint;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -13,7 +12,8 @@ import java.time.LocalDateTime;
 public class CheckpointMarkDto extends GenericDto{
 
     private Long id;
-    private Checkpoint checkpoint;
+    private Long checkpointId;
     private LocalDateTime scheduledMarkedTime;
     private LocalDateTime actualMarkedTime;
+    private CheckpointDto checkpoint;
 }

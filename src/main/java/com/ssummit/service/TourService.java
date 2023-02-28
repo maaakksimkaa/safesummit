@@ -1,5 +1,6 @@
 package com.ssummit.service;
 
+import com.ssummit.dto.AddCheckpointMarkDto;
 import com.ssummit.dto.AddRouteDto;
 import com.ssummit.dto.AddTourDto;
 import com.ssummit.model.*;
@@ -8,10 +9,9 @@ import com.ssummit.repository.TourRepository;
 import com.ssummit.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -19,12 +19,16 @@ public class TourService extends GenericService<Tour> {
     private final TourRepository repository;
     private final UserRepository userRepository;
     private final RouteRepository routeRepository;
+    private final CheckpointMarkService checkpointMarkService;
+    private final CheckpointService checkpointService;
 
-    protected TourService(TourRepository repository, UserRepository userRepository, RouteRepository routeRepository) {
+    protected TourService(TourRepository repository, UserRepository userRepository, RouteRepository routeRepository, CheckpointMarkService checkpointMarkService, CheckpointService checkpointService) {
         super(repository);
         this.repository = repository;
         this.userRepository = userRepository;
         this.routeRepository = routeRepository;
+        this.checkpointMarkService = checkpointMarkService;
+        this.checkpointService = checkpointService;
     }
 
     public String getTourDescription(Long id) {
@@ -56,6 +60,22 @@ public class TourService extends GenericService<Tour> {
         return update(tour);
     }
 
+    public Tour addCheckpointMark(AddCheckpointMarkDto addCheckpointMarkDto) {
+        Tour tour = getOne(addCheckpointMarkDto.getTourId());
+        Checkpoint checkpoint = checkpointService.getOne(addCheckpointMarkDto.getCheckpointId());
+        CheckpointMark checkpointMark = new CheckpointMark();
+        checkpointMark.setCheckpoint(checkpoint);
+        checkpointMark.setScheduledMarkedTime(addCheckpointMarkDto.getScheduledMarkedTime());
+        checkpointMarkService.create(checkpointMark);
+        tour.getCheckpointMarks().add(checkpointMark);
+        return update(tour);
+    }
+
+    public Set<String> getRouteCheckpoints(Long tourId) {
+        return getOne(tourId).getRoute().getRouteCheckpoints().stream()
+                .map(Checkpoint::getTitle).collect(Collectors.toSet());
+    }
+
     public Set<CheckpointMark> getCheckpointsMarks(Long tourId) {
         return getOne(tourId).getCheckpointMarks();
     }
@@ -70,6 +90,16 @@ public class TourService extends GenericService<Tour> {
         lastCheckpointCoordinates.add(lastCheckpoint.getLatitude());
         lastCheckpointCoordinates.add(lastCheckpoint.getLongitude());
         return lastCheckpointCoordinates;
+    }
+
+    public Map<LocalDateTime, String> getScheduledTours() {
+        List<Tour> tours = repository.findAll();
+        Map<LocalDateTime, String> tourSchedule = new HashMap<>();
+        for (Tour tour:
+             tours) {
+            tourSchedule.put(tour.getStartDate(), tour.getDescription());
+        }
+        return tourSchedule;
     }
 
 }
