@@ -3,6 +3,7 @@ package com.ssummit.dto;
 import lombok.*;
 
 import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Set;
 
@@ -13,16 +14,38 @@ import java.util.Set;
 @NoArgsConstructor
 public class UserDto extends GenericDto {
 
+    @NotBlank(message = "Поле не должно быть пустым")
     private String firstName;
+
+    @NotBlank(message = "Поле не должно быть пустым")
     private String middleName;
+
+    @NotBlank(message = "Поле не должно быть пустым")
     private String lastName;
     private LocalDate birthDate;
+
+    @NotBlank(message = "Поле не должно быть пустым")
+    private Date birthDate;
+
+    @NotBlank(message = "Поле не должно быть пустым")
     private String phone;
+
+    @NotBlank(message = "Поле не должно быть пустым")
     private String email;
+
+    @NotBlank(message = "Поле не должно быть пустым")
     private String address;
+
+    @NotBlank(message = "Поле не должно быть пустым")
     private String passportNo;
+
+    @NotBlank(message = "Поле не должно быть пустым")
     private String login;
+
+    @NotBlank(message = "Поле не должно быть пустым")
     private String password;
+
+    @NotBlank(message = "Поле не должно быть пустым")
     private RoleDto role;
-    private Set<Long> toursIds;
+    private Set<Long> assignedToursIds;
 }

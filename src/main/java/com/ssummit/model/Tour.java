@@ -24,14 +24,14 @@ public class Tour extends GenericModel {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "primary_guide_user_id",
             foreignKey = @ForeignKey(name = "FK_TOUR_PRIMARYGUIDE")
     )
     private User primaryGuide;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "secondary_guide_user_id",
             foreignKey = @ForeignKey(name = "FK_TOUR_SECONDARYGUIDE")

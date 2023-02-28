@@ -1,6 +1,8 @@
 package com.ssummit.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -27,7 +29,15 @@ public class Checkpoint extends GenericModel {
 
     @Column(name = "longitude")
     private Double longitude;
-    @ManyToMany(mappedBy = "requiredItemTypes", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinTable(
+            name = "route_checkpoints",
+            joinColumns = @JoinColumn(name = "checkpoint_id"),
+            foreignKey = @ForeignKey(name = "FK_CHECKPOINTS_ROUTES"),
+            inverseJoinColumns = @JoinColumn(name = "route_id"),
+            inverseForeignKey = @ForeignKey(name = "FK_ROUTES_CHECKPOINTS")
+    )
     private Set<Route> routes = new HashSet<>();
 
     @Builder

@@ -1,5 +1,6 @@
 package com.ssummit.dto;
 
+import com.ssummit.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,9 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserWithToursDto extends UserDto {
+public class TourGuidesAndParticipantsDto extends TourDto {
 
-    private Set<TourDto> assignedTours;
+    private User primaryGuide;
+    private User secondaryGuide;
+    private Set<UserDto> participants;
 }

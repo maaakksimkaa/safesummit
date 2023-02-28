@@ -1,6 +1,7 @@
 package com.ssummit.model;
 
 import javax.persistence.*;
+
 import lombok.*;
 
 import java.time.LocalDate;
@@ -12,8 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@SequenceGenerator(name = "default_generator", sequenceName = "checkpointmarks_deq", allocationSize = 1)
-public class CheckpointMark {
+@SequenceGenerator(name = "default_generator", sequenceName = "checkpointmarks_seq", allocationSize = 1)
+public class CheckpointMark{
 
     @Id
     @Column(name = "id")

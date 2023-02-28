@@ -48,17 +48,24 @@ public class User extends GenericModel {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(
 			name = "role_id",
 			foreignKey = @ForeignKey(name = "FK_USER_ROLE")
 	)
 	private Role role;
 
-	@ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-	private Set<Tour> assignedTours = new HashSet<>();
 	@Column(name = "change_password_token")
 	private String changePasswordToken;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "tour_participants",
+            joinColumns = @JoinColumn(name = "user_id"),
+            foreignKey =  @ForeignKey(name = "FK_USERS_TOURS"),
+            inverseJoinColumns = @JoinColumn(name = "tour_id"),
+            inverseForeignKey = @ForeignKey(name = "FK_TOURS_USERS")
+    )
+    private Set<Tour> assignedTours = new HashSet<>();
 
 	@Builder
 	public User(Long id, String createdBy, LocalDateTime createdDateTime, LocalDateTime updatedDateTime, String updatedBy,
