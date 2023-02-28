@@ -22,10 +22,12 @@ public class UserDto extends GenericDto {
 
     @NotBlank(message = "Поле не должно быть пустым")
     private String lastName;
-    private LocalDate birthDate;
 
     @NotBlank(message = "Поле не должно быть пустым")
-    private Date birthDate;
+    private LocalDate birthDate;
+
+//    @NotBlank(message = "Поле не должно быть пустым")
+//    private Date birthDate;
 
     @NotBlank(message = "Поле не должно быть пустым")
     private String phone;

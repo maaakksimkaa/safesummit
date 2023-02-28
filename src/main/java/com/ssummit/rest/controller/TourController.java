@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -101,7 +102,7 @@ public class TourController extends GenericController<Tour, TourDto> {
 
 	@Operation(description = "Просмотреть расписание туров")
 	@GetMapping("/tour-get-scheduled-tours")
-	public Map<Date, String> getScheduledTours() {
+	public Map<LocalDateTime, String> getScheduledTours() {
 		return service.getScheduledTours();
 	}
 }

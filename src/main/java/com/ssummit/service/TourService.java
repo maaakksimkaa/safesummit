@@ -9,6 +9,7 @@ import com.ssummit.repository.TourRepository;
 import com.ssummit.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -91,9 +92,9 @@ public class TourService extends GenericService<Tour> {
         return lastCheckpointCoordinates;
     }
 
-    public Map<Date, String> getScheduledTours() {
+    public Map<LocalDateTime, String> getScheduledTours() {
         List<Tour> tours = repository.findAll();
-        Map<Date, String> tourSchedule = new HashMap<>();
+        Map<LocalDateTime, String> tourSchedule = new HashMap<>();
         for (Tour tour:
              tours) {
             tourSchedule.put(tour.getStartDate(), tour.getDescription());

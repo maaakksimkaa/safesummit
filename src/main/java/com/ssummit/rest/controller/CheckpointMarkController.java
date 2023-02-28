@@ -2,6 +2,7 @@ package com.ssummit.rest.controller;
 
 import com.ssummit.dto.MarkCheckpointDto;
 import com.ssummit.mapper.CheckpointMarkMapper;
+import com.ssummit.model.CheckpointMark;
 import com.ssummit.service.CheckpointMarkService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
