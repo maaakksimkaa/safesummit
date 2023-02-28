@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CheckpointMarkService {
@@ -37,5 +38,8 @@ public class CheckpointMarkService {
 		CheckpointMark checkpointMark = repository.findById(markCheckpointDto.getCheckpointMarkId()).get();
 		checkpointMark.setActualMarkedTime(actualMarkTime);
 		return update(checkpointMark);
+	}
+	public CheckpointMark activeCheckpointMark() {
+		return repository.findFirstByScheduledMarkedTimeAndActualMarkedTimeAfterOrderByActualMarkedTimeAsc(null,LocalDateTime.now());
 	}
 }

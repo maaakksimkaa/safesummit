@@ -20,7 +20,7 @@ public class MessageType {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition="TEXT")
     private String description;
 
 //    public MessageType(MessageTypeDto messageTypeDto) {

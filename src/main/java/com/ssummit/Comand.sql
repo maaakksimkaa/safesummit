@@ -1,55 +1,13 @@
-create table roles
+create table checkpoint_marks
 (
-    id          bigint not null
+    id                  bigint not null
         primary key,
-    description text,
-    title       varchar(255)
-);
-
-create table users
-(
-    id                    bigint       not null
-        primary key,
-    created_by            varchar(255),
-    created_timestamp     timestamp(6),
-    deleted_by            varchar(255),
-    deleted_timestamp     timestamp(6),
-    is_deleted            boolean,
-    updated_by            varchar(255),
-    updated_timestamp     timestamp(6),
-    address               text,
-    birth_date            date,
-    email                 varchar(255),
-    first_name            varchar(255),
-    last_name             varchar(255),
-    login                 varchar(255) not null,
-    middle_name           varchar(255),
-    passport_no           varchar(255),
-    password              varchar(255) not null,
-    phone                 varchar(255),
-    change_password_token varchar(255),
-    role_id               bigint
-        constraint fk_user_role
-            references roles
-);
-create table message_types
-(
-    id          bigint not null
-        primary key,
-    description text,
-    title       varchar(255)
-);
-create table messages
-(
-    id                bigint not null
-        primary key,
-    created_by        varchar(255),
-    created_timestamp timestamp(6),
-    description       text,
-    title             varchar(255),
-    message_type_id   bigint
-        constraint fk_message_messagetype
-            references message_types
+    message_send        boolean,
+    actual_marked_time  timestamp(6),
+    scheduled_mark_time timestamp(6),
+    checkpoint_id       bigint
+        constraint fk_checkpoint
+            references checkpoints
 );
 create table checkpoints
 (
@@ -66,64 +24,6 @@ create table checkpoints
     latitude          double precision,
     longitude         double precision,
     title             varchar(255)
-);
-create table checkpoint_marks
-(
-    id                  bigint not null
-        primary key,
-    actual_marked_time  timestamp(6),
-    scheduled_mark_time timestamp(6),
-    checkpoint_id       bigint
-        constraint fk_checkpoint
-            references checkpoints
-);
-create table routes
-(
-    id                bigint not null
-        primary key,
-    created_by        varchar(255),
-    created_timestamp timestamp(6),
-    deleted_by        varchar(255),
-    deleted_timestamp timestamp(6),
-    is_deleted        boolean,
-    updated_by        varchar(255),
-    updated_timestamp timestamp(6),
-    category          varchar(255),
-    description       text,
-    duration          interval day,
-    title             varchar(255)
-
-);
-create table tour_applications
-(
-    id                            bigint not null
-        primary key,
-    created_by                    varchar(255),
-    created_timestamp             timestamp(6),
-    deleted_by                    varchar(255),
-    deleted_timestamp             timestamp(6),
-    is_deleted                    boolean,
-    updated_by                    varchar(255),
-    updated_timestamp             timestamp(6),
-    application_date              date,
-    application_registration_date date,
-    description                   text,
-    incoming_post_number          varchar(255),
-    outcoming_post_number         varchar(255),
-    title                         varchar(255)
-);
-create table tour_equipment
-(
-    id                bigint not null
-        primary key,
-    created_by        varchar(255),
-    created_timestamp timestamp(6),
-    deleted_by        varchar(255),
-    deleted_timestamp timestamp(6),
-    is_deleted        boolean,
-    updated_by        varchar(255),
-    updated_timestamp timestamp(6),
-    date_of_issue     timestamp(6)
 );
 create table item_types
 (
@@ -168,6 +68,119 @@ create table items
         constraint fk_tour_equipment_items
             references tour_equipment
 );
+create table message_types
+(
+    id          bigint not null
+        primary key,
+    description text,
+    title       varchar(255)
+);
+create table messages
+(
+    id                bigint not null
+        primary key,
+    created_by        varchar(255),
+    created_timestamp timestamp(6),
+    description       text,
+    title             varchar(255),
+    message_type_id   bigint
+        constraint fk_message_messagetype
+            references message_types
+);
+create table required_item_types
+(
+    route_id    bigint not null
+        constraint fk_routes_itemtypes
+            references routes,
+    itemtype_id bigint not null
+        constraint fk_itemtypes_routes
+            references item_types,
+    primary key (route_id, itemtype_id)
+);
+create table roles
+(
+    id          bigint not null
+        primary key,
+    description text,
+    title       varchar(255)
+);
+create table route_checkpoints
+(
+    route_id     bigint not null
+        constraint fk_routes_checkpoints
+            references routes,
+    checkpoit_id bigint not null
+        constraint fk_checkpoints_routes
+            references checkpoints,
+    primary key (route_id, checkpoit_id)
+);
+create table routes
+(
+    id                bigint not null
+        primary key,
+    created_by        varchar(255),
+    created_timestamp timestamp(6),
+    deleted_by        varchar(255),
+    deleted_timestamp timestamp(6),
+    is_deleted        boolean,
+    updated_by        varchar(255),
+    updated_timestamp timestamp(6),
+    category          varchar(255),
+    description       text,
+    duration          interval day,
+    title             varchar(255)
+);
+create table tour_applications
+(
+    id                            bigint not null
+        primary key,
+    created_by                    varchar(255),
+    created_timestamp             timestamp(6),
+    deleted_by                    varchar(255),
+    deleted_timestamp             timestamp(6),
+    is_deleted                    boolean,
+    updated_by                    varchar(255),
+    updated_timestamp             timestamp(6),
+    application_date              date,
+    application_registration_date date,
+    description                   text,
+    incoming_post_number          varchar(255),
+    outcoming_post_number         varchar(255),
+    title                         varchar(255)
+);
+create table tour_checkpoint_marks
+(
+    tour_id             bigint not null
+        constraint fk_tours_checkpoint_marks
+            references tours,
+    checkpoint_marks_id bigint not null
+        constraint uk_checkpoint_marks_tour
+            unique references checkpoint_marks,
+    primary key (tour_id, checkpoint_marks_id)
+);
+create table tour_equipment
+(
+    id                bigint not null
+        primary key,
+    created_by        varchar(255),
+    created_timestamp timestamp(6),
+    deleted_by        varchar(255),
+    deleted_timestamp timestamp(6),
+    is_deleted        boolean,
+    updated_by        varchar(255),
+    updated_timestamp timestamp(6),
+    date_of_issue     timestamp(6)
+);
+create table tour_participants
+(
+    tour_id bigint not null
+        constraint fk_tours_users
+            references tours,
+    user_id bigint not null
+        constraint fk_users_tours
+            references users,
+    primary key (tour_id, user_id)
+);
 create table tours
 (
     id                      bigint not null
@@ -199,45 +212,29 @@ create table tours
         constraint fk_tour_tour_equipment
             references tour_equipment
 );
-create table required_item_types
+create table users
 (
-    route_id    bigint not null
-        constraint fk_routes_itemtypes
-            references routes,
-    itemtype_id bigint not null
-        constraint fk_itemtypes_routes
-            references item_types,
-    primary key (route_id, itemtype_id)
-);
-
-create table route_checkpoints
-(
-    route_id     bigint not null
-        constraint fk_routes_checkpoints
-            references routes,
-    checkpoit_id bigint not null
-        constraint fk_checkpoints_routes
-            references checkpoints,
-    primary key (route_id, checkpoit_id)
-);
-create table tour_checkpoint_marks
-(
-    tour_id             bigint not null
-        constraint fk_tours_checkpoint_marks
-            references tours,
-    checkpoint_marks_id bigint not null
-        constraint uk_checkpoint_marks_tour
-            unique references checkpoint_marks,
-    primary key (tour_id, checkpoint_marks_id)
-);
-
-create table tour_participants
-(
-    tour_id bigint not null
-        constraint fk_tours_users
-            references tours,
-    user_id bigint not null
-        constraint fk_users_tours
-            references users,
-    primary key (tour_id, user_id)
+    id                    bigint       not null
+        primary key,
+    created_by            varchar(255),
+    created_timestamp     timestamp(6),
+    deleted_by            varchar(255),
+    deleted_timestamp     timestamp(6),
+    is_deleted            boolean,
+    updated_by            varchar(255),
+    updated_timestamp     timestamp(6),
+    address               text,
+    birth_date            date,
+    email                 varchar(255) not null unique,
+    first_name            varchar(255),
+    last_name             varchar(255),
+    login                 varchar(255) not null unique,
+    middle_name           varchar(255),
+    passport_no           varchar(255),
+    password              varchar(255) not null,
+    phone                 varchar(255),
+    change_password_token varchar(255),
+    role_id               bigint
+        constraint fk_user_role
+            references roles
 );

@@ -9,6 +9,7 @@ import com.ssummit.repository.TourRepository;
 import com.ssummit.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class TourService extends GenericService<Tour> {
     private final TourRepository repository;
-    private final UserRepository userRepository;
+    private final UserRepository repository1;
     private final RouteRepository routeRepository;
     private final CheckpointMarkService checkpointMarkService;
     private final CheckpointService checkpointService;
@@ -25,7 +26,7 @@ public class TourService extends GenericService<Tour> {
     protected TourService(TourRepository repository, UserRepository userRepository, RouteRepository routeRepository, CheckpointMarkService checkpointMarkService, CheckpointService checkpointService) {
         super(repository);
         this.repository = repository;
-        this.userRepository = userRepository;
+        this.repository1 = userRepository;
         this.routeRepository = routeRepository;
         this.checkpointMarkService = checkpointMarkService;
         this.checkpointService = checkpointService;
@@ -40,14 +41,14 @@ public class TourService extends GenericService<Tour> {
     }
 
     public Tour setPrimaryGuide(AddTourDto addTourDto) {
-        User user = userRepository.findById(addTourDto.getUserId()).get();
+        User user = repository1.findById(addTourDto.getUserId()).get();
         Tour tour = getOne(addTourDto.getTourId());
         tour.setPrimaryGuide(user);
         return update(tour);
     }
 
     public Tour setSecondaryGuide(AddTourDto addTourDto) {
-        User user = userRepository.findById(addTourDto.getUserId()).get();
+        User user = repository1.findById(addTourDto.getUserId()).get();
         Tour tour = getOne(addTourDto.getTourId());
         tour.setSecondaryGuide(user);
         return update(tour);
@@ -100,6 +101,10 @@ public class TourService extends GenericService<Tour> {
             tourSchedule.put(tour.getStartDate(), tour.getDescription());
         }
         return tourSchedule;
+    }
+
+    public List<Tour> getAllActiveTour() {
+        return repository.findByStartDateBeforeAndEndDateAfter(LocalDateTime.now(),LocalDateTime.now());
     }
 
 }

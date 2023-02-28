@@ -1,10 +1,11 @@
 package com.ssummit.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
-
-import lombok.*;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,25 +15,27 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SequenceGenerator(name = "default_generator", sequenceName = "checkpointmarks_seq", allocationSize = 1)
-public class CheckpointMark{
+public class CheckpointMark {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(
-            name = "checkpoint_id",
-            foreignKey = @ForeignKey(name = "FK_CHECKPOINT")
-    )
-    private Checkpoint checkpoint;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(
+			name = "checkpoint_id",
+			foreignKey = @ForeignKey(name = "FK_CHECKPOINT")
+	)
+	private Checkpoint checkpoint;
 
-    @Column(name = "scheduled_mark_time")
-    private LocalDateTime scheduledMarkedTime;
+	@Column(name = "scheduled_mark_time")
+	private LocalDateTime scheduledMarkedTime;
 
-    @Column(name = "actual_marked_time")
-    private LocalDateTime actualMarkedTime;
+	@Column(name = "actual_marked_time")
+	private LocalDateTime actualMarkedTime;
+	@Column(name = "messge_send")
+	private boolean messageSend;
 
 //    @Builder
 //    public CheckpointMark(Long id, Checkpoint checkpoint, LocalDateTime scheduledMarkedTime, LocalDateTime actualMarkedTime) {

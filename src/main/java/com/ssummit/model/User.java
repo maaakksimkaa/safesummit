@@ -33,16 +33,16 @@ public class User extends GenericModel {
 	@Column(name = "phone")
 	private String phone;
 
-	@Column(name = "email")
+	@Column(name = "email",unique = true, nullable = false)
 	private String email;
 
-	@Column(name = "address")
+	@Column(name = "address", columnDefinition="TEXT")
 	private String address;
 
 	@Column(name = "passport_no")
 	private String passportNo;
 
-	@Column(name = "login", nullable = false)
+	@Column(name = "login", nullable = false, unique = true)
 	private String login;
 
 	@Column(name = "password", nullable = false)
@@ -84,5 +84,12 @@ public class User extends GenericModel {
 		this.login = login;
 		this.password = password;
 		this.role = role;
+	}
+
+	public String toStringFIO() {
+		return role.getTitle() +
+				": " + firstName + '\'' +
+				", " + middleName + '\'' +
+				", " + lastName + '\'';
 	}
 }

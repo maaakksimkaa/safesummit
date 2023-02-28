@@ -21,7 +21,7 @@ public class Tour extends GenericModel {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition="TEXT")
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -1,3 +1,0 @@
-id,created_by,created_timestamp,deleted_by,deleted_timestamp,is_deleted,updated_by,updated_timestamp,date_of_issue
-1,ADMIN,2022-05-20 15:43:00.000000,null,,false,ADMIN,2022-06-25 8:40:00.000000,2022-06-25 8:40:00.000000
-2,ADMIN,2022-06-15 10:11:00.000000,null,,false,ADMIN,2022-07-10 8:30:00.000000,2022-07-10 8:30:00.000000

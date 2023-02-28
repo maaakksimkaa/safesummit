@@ -18,11 +18,10 @@ import java.util.UUID;
 
 @Service
 public class UserService extends GenericService<User> {
-	private final UserRepository userRepository;
+	private final UserRepository repository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final TourRepository tourRepository;
 	private final TourService tourService;
-	private final UserRepository repository;
 	private final RoleRepository roleRepository;
 	private final JavaMailSender javaMailSender;
 	private final RoleService roleService;
@@ -36,7 +35,6 @@ public class UserService extends GenericService<User> {
 						   TourService tourService,
 						   RoleRepository roleRepository, RoleService roleService, JavaMailSender javaMailSender){
 		super(repository);
-		this.userRepository = userRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 		this.tourRepository = tourRepository;
 		this.tourService = tourService;
@@ -90,7 +88,7 @@ public class UserService extends GenericService<User> {
 	}
 
 	public User getByUserName(final String name) {
-		return userRepository.findUserByLogin(name);
+		return repository.findUserByLogin(name);
 	}
 
 
@@ -99,7 +97,7 @@ public class UserService extends GenericService<User> {
 	}
 
 	public User getUserByEmail(String email) {
-		return userRepository.findByEmail(email);
+		return repository.findByEmail(email);
 	}
 
 	public void sendChangePasswordEmail(String email) {
@@ -111,7 +109,7 @@ public class UserService extends GenericService<User> {
 		SimpleMailMessage message = createMessage(email,
 				"Восстановление пароля на сайте Походник",
 				"Добрый день. Вы получили это письмо, так как с вашего аккаунта была отправлена заявка <br> на восстановление пароля.\n "
-						+ "Для восстановления пароля перейдите по ссылке: http://localhost:99292/users/change-password?uuid=" + uuid);
+						+ "Для восстановления пароля перейдите по ссылке: http://localhost:9292/users/change-password?uuid=" + uuid);
 		javaMailSender.send(message);
 	}
 
@@ -124,7 +122,7 @@ public class UserService extends GenericService<User> {
 	}
 
 	private User findByToken(String password) {
-		return userRepository.findByChangePasswordToken(password);
+		return repository.findByChangePasswordToken(password);
 	}
 
 	public void changePassword(String uuid, String password) {
@@ -139,4 +137,6 @@ public class UserService extends GenericService<User> {
 		return bCryptPasswordEncoder.matches(loginDTO.getPassword(),
 				getByUserName(loginDTO.getLogin()).getPassword());
 	}
+
+
 }

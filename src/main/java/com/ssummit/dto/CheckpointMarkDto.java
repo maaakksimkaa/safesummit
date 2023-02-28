@@ -16,4 +16,5 @@ public class CheckpointMarkDto extends GenericDto{
     private LocalDateTime scheduledMarkedTime;
     private LocalDateTime actualMarkedTime;
     private CheckpointDto checkpoint;
+    private boolean messageSend;
 }
