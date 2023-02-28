@@ -2,6 +2,7 @@ package com.ssummit.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ public class Checkpoint extends GenericModel {
     @Column(name = "longitude")
     private Double longitude;
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinTable(
             name = "route_checkpoints",
             joinColumns = @JoinColumn(name = "checkpoint_id"),

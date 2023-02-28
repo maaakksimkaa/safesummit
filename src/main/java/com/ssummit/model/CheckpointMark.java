@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SequenceGenerator(name = "default_generator", sequenceName = "checkpointmarks_seq", allocationSize = 1)
-public class CheckpointMark extends GenericModel {
+public class CheckpointMark{
 
     @Id
     @Column(name = "id")

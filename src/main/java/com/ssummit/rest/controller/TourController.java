@@ -13,7 +13,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Slf4j
@@ -93,5 +95,11 @@ public class TourController extends GenericController<Tour, TourDto> {
 	@GetMapping("/tour-route-checkpoints/{tourId}")
 	public Set<String> getRouteCheckpoints(@PathVariable Long tourId) {
 		return service.getRouteCheckpoints(tourId);
+	}
+
+	@Operation(description = "Просмотреть расписание туров")
+	@GetMapping("/tour-get-scheduled-tours")
+	public Map<Date, String> getScheduledTours() {
+		return service.getScheduledTours();
 	}
 }
