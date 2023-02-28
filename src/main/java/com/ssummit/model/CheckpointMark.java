@@ -34,7 +34,7 @@ public class CheckpointMark {
 
 	@Column(name = "actual_marked_time")
 	private LocalDateTime actualMarkedTime;
-	@Column(name = "messge_send")
+	@Column(name = "message_send")
 	private boolean messageSend;
 
 //    @Builder
