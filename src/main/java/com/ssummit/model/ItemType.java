@@ -1,6 +1,8 @@
 package com.ssummit.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.HashSet;
@@ -27,6 +29,7 @@ public class ItemType extends GenericModel{
     private String description;
 
     @ManyToMany(mappedBy = "requiredItemTypes", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JsonIgnore
     private Set<Route> routes = new HashSet<>();
 
 //    public ItemType(ItemTypeDto itemTypeDto) {

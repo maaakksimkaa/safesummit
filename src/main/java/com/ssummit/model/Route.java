@@ -30,6 +30,9 @@ public class Route extends GenericModel {
 	@Column(name = "category")
 	private String category;
 
+	@Column(name = "ow_city_id")
+	private String oWCityId;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "route_checkpoints",

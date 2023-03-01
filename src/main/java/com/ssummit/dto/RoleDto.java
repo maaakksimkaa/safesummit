@@ -20,3 +20,5 @@ public class RoleDto {
         this.description = role.getDescription();
     }
 }
+
+//TODO удалить конструктор?

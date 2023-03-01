@@ -69,10 +69,19 @@ public class UserService extends GenericService<User> {
 		return repository.save(user);
 	}
 
-	public User addTour(AddTourDto addTourDto) {
+	public User addTour(AddTourDto addTourDto) throws Exception {
 		User user = getOne(addTourDto.getUserId());
 		Tour tour = tourService.getOne(addTourDto.getTourId());
-		user.getAssignedTours().add(tour);
+		if (tour.getParticipants().size() < 10) {
+			user.getAssignedTours().add(tour);
+		} else {
+			throw new Exception("Все места в этом походе уже заняты");
+		}
+		SimpleMailMessage message = createMessage(user.getEmail(),
+				"Регистрация на тур с SafeSummit",
+				"Вы успешно зарегистрировались на тур\n "
+						+ tour.getDescription() + ". Дата начала: " + tour.getStartDate());
+		javaMailSender.send(message);
 		return update(user);
 	}
 
@@ -80,6 +89,11 @@ public class UserService extends GenericService<User> {
 		User user = getOne(addTourDto.getUserId());
 		Tour tour = tourService.getOne(addTourDto.getTourId());
 		user.getAssignedTours().remove(tour);
+		SimpleMailMessage message = createMessage(user.getEmail(),
+				"Отмена регистрации на тур с SafeSummit",
+				"Вы отменили участие в туре\n "
+						+ tour.getDescription() + ". Дата начала: " + tour.getStartDate());
+		javaMailSender.send(message);
 		return update(user);
 	}
 
@@ -107,7 +121,7 @@ public class UserService extends GenericService<User> {
 		user.setChangePasswordToken(uuid.toString());
 		update(user);
 		SimpleMailMessage message = createMessage(email,
-				"Восстановление пароля на сайте Походник",
+				"Восстановление пароля на сайте SafeSummit",
 				"Добрый день. Вы получили это письмо, так как с вашего аккаунта была отправлена заявка <br> на восстановление пароля.\n "
 						+ "Для восстановления пароля перейдите по ссылке: http://localhost:9292/users/change-password?uuid=" + uuid);
 		javaMailSender.send(message);

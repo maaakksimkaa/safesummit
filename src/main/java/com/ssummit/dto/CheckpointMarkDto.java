@@ -18,3 +18,5 @@ public class CheckpointMarkDto extends GenericDto{
     private CheckpointDto checkpoint;
     private boolean messageSend;
 }
+
+//TODO удалить класс?
