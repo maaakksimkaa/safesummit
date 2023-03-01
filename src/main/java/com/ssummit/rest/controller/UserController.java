@@ -1,9 +1,6 @@
 package com.ssummit.rest.controller;
 
-import com.ssummit.dto.AddTourDto;
-import com.ssummit.dto.RestorePasswordWithEmailDTO;
-import com.ssummit.dto.UserDto;
-import com.ssummit.dto.UserWithToursDto;
+import com.ssummit.dto.*;
 import com.ssummit.mapper.UserMapper;
 import com.ssummit.mapper.UserWithToursMapper;
 import com.ssummit.model.User;

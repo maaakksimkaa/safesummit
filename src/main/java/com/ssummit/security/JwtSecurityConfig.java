@@ -24,7 +24,6 @@ public class JwtSecurityConfig
       implements WebMvcConfigurer {
 
     private static final String[] AUTH_WHITELIST = {
-         // -- Swagger UI v2
           "/v2/api-docs",
           "/swagger-resources",
           "/swagger-resources/**",
@@ -33,15 +32,13 @@ public class JwtSecurityConfig
           "/swagger-ui.html",
           "/swagger-ui.html/**",
           "/webjars/**",
-          // -- Swagger UI v3 (OpenAPI)
           "/v3/api-docs/**",
           "/swagger-ui/**",
           "/css/**",
           "/img/**",
           "/js/**",
-          "/encode/*",
-          "/login"
-         // other public endpoints of your API may be appended to this array
+          "/api/authorization",
+          "/user/registration"
    };
 
     private final JwtTokenFilter jwtTokenFilter;
@@ -73,7 +70,38 @@ public class JwtSecurityConfig
         ))
         .and().authorizeRequests()
         //Доступ только для авторизованных пользователей
-        .antMatchers("/role/**").hasRole("CLIENT") //руты которые доступны юзеру
+        .antMatchers("/tour/tour_description/{tourId}",
+                "/user/tour-revoke",
+                "/user/scheduled_tours",
+                "/tour/tour-register",
+                "/user/restore-password",
+                "/user//change-password",
+                "/user/registration",
+                "/user/create-spectator",
+                "/update/{id}",
+                "/get/{id}").hasRole("CLIENT")
+        .antMatchers("/tour/set-route",
+                "/tour/tour_equipment/{tourId}",
+                "/tour/tour-get-guides-and-participants/{tourId}")
+                .hasRole("GUIDE")
+        .antMatchers("/tour/tour_checkpoints_marks/{tourId}",
+                "/tour/tour-last-checkpoint/{tourId}",
+                "/user/restore-password")
+                .hasRole("SPECTATOR")
+        .antMatchers("/user/**",
+                "/tour/**",
+                "/tour-equipment/**",
+                "/tour-application/**",
+                "/route/**",
+                "/role/**",
+                "/message-type/**",
+                "/message/**",
+                "/checkpoint-mark/**",
+                "/item-type/**",
+                "/item/**",
+                "/checkpoint/**"
+                )
+                .hasRole("ADMIN")
         .anyRequest().permitAll()
         .and()
         .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

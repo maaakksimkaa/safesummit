@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -99,6 +98,7 @@ public class TourController extends GenericController<Tour, TourDto> {
 	public Set<String> getRouteCheckpoints(@PathVariable Long tourId) {
 		return service.getRouteCheckpoints(tourId);
 	}
+
 
 	@Operation(description = "Просмотреть расписание туров")
 	@GetMapping("/tour-get-scheduled-tours")

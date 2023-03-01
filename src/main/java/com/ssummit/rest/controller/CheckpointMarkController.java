@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @SecurityRequirement(name = "Bearer Authentication")
-@RequestMapping("/checkpoit-mark")
+@RequestMapping("/checkpoint-mark")
 public class CheckpointMarkController {
 
 	private final CheckpointMarkService service;
