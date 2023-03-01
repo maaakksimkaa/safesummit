@@ -84,10 +84,7 @@ public class TourService extends GenericService<Tour> {
     }
 
     public List<Double> getLastCheckpointCoordinates(Long tourId) {
-        Set<CheckpointMark> checkpointMarks = getOne(tourId).getCheckpointMarks();
-        CheckpointMark lastCheckpointMark = checkpointMarks.stream()
-                .max(Comparator.comparing(CheckpointMark::getActualMarkedTime))
-                .get();
+        CheckpointMark lastCheckpointMark = getLastPassedCheckMark(tourId);
         Checkpoint lastCheckpoint = lastCheckpointMark.getCheckpoint();
         List<Double> lastCheckpointCoordinates = new ArrayList<>();
         lastCheckpointCoordinates.add(lastCheckpoint.getLatitude());
@@ -108,12 +105,11 @@ public class TourService extends GenericService<Tour> {
     public List<Tour> getAllActiveTour() {
         return repository.findByStartDateBeforeAndEndDateAfter(LocalDateTime.now(),LocalDateTime.now());
     }
-    public CheckpointMark getNowCheckpointMark() {
-        return checkpointMarkRepository.getFirstByActualMarkedTimeNullAndActualMarkedTimeBeforeOrderByScheduledMarkedTimeDesc(LocalDateTime.now());
+    public CheckpointMark getNowCheckpointMark(Long tourId) {
+        return checkpointMarkRepository.getFirstByTour_IdAndScheduledMarkedTimeBeforeAndActualMarkedTimeNullOrderByScheduledMarkedTimeAsc(tourId,LocalDateTime.now());
     }
-    public CheckpointMark getLastPassedCheckMark(){
-        return checkpointMarkRepository.getFirstByActualMarkedTimeNotNullOrderByActualMarkedTimeDesc();
+    public CheckpointMark getLastPassedCheckMark(Long tourId){
+        return checkpointMarkRepository.getFirstByTour_IdAndActualMarkedTimeNotNullOrderByActualMarkedTimeAsc(tourId);
     }
-
 
 }

@@ -14,17 +14,6 @@ create table checkpoints
     updated_by        varchar(255),
     updated_timestamp timestamp(6)
 );
-create table checkpoint_marks
-(
-    id                  bigint not null
-        primary key,
-    message_send        boolean,
-    actual_marked_time  timestamp(6),
-    scheduled_mark_time timestamp(6),
-    checkpoint_id       bigint
-        constraint fk_checkpoint
-            references checkpoints
-);
 create table item_types
 (
     id                bigint not null
@@ -218,6 +207,21 @@ create table tours
     is_deleted              boolean,
     updated_by              varchar(255),
     updated_timestamp       timestamp(6)
+);
+create table checkpoint_marks
+(
+    id                  bigint not null
+        primary key,
+    message_send        boolean,
+    actual_marked_time  timestamp(6),
+    scheduled_mark_time timestamp(6),
+    tour_id        bigint
+        constraint fk_checkpoint_mark_tour
+            references tours,
+    checkpoint_id       bigint
+        constraint fk_checkpoint
+            references checkpoints
+
 );
 create table tour_participants
 (

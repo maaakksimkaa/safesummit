@@ -37,6 +37,13 @@ public class CheckpointMark {
 	@Column(name = "message_send")
 	private boolean messageSend;
 
+	@ManyToOne
+	@JoinColumn(
+			name = "tour_id",
+			foreignKey = @ForeignKey(name = "FK_CHECKPOINT_MARK_TOUR")
+	)
+	private Tour tour;
+
 //    @Builder
 //    public CheckpointMark(Long id, Checkpoint checkpoint, LocalDateTime scheduledMarkedTime, LocalDateTime actualMarkedTime) {
 //        this.id = id;

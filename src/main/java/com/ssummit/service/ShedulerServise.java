@@ -43,15 +43,15 @@ public class ShedulerServise {
 	public void generateMessage() {
 		List<Tour> list = tourService.getAllActiveTour();
 		for (int i = 0; i < list.size(); i++) {
-			Set<CheckpointMark> checkpointMarks = tourService.getOne(list.get(i).getId()).getCheckpointMarks();
+//			Set<CheckpointMark> checkpointMarks = tourService.getOne(list.get(i).getId()).getCheckpointMarks();
 //			CheckpointMark nowCheckpointMark = checkpointMarks.stream()
 //					.min(Comparator.comparing(CheckpointMark::getScheduledMarkedTime))
 //					.get();
-			CheckpointMark nowCheckpointMark = tourService.getNowCheckpointMark();
+			CheckpointMark nowCheckpointMark = tourService.getNowCheckpointMark(list.get(i).getId());
 //			CheckpointMark lastCheckpointMark = checkpointMarks.stream()
 //					.max(Comparator.comparing(CheckpointMark::getActualMarkedTime))
 //					.get();
-			CheckpointMark lastCheckpointMark =tourService.getLastPassedCheckMark();
+			CheckpointMark lastCheckpointMark =tourService.getLastPassedCheckMark(list.get(i).getId());
 
 			Message message = new Message();
 			message.setCreatedBy("ADMIN");
