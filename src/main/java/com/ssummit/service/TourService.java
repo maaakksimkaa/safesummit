@@ -6,9 +6,7 @@ import com.ssummit.repository.CheckpointMarkRepository;
 import com.ssummit.repository.RouteRepository;
 import com.ssummit.repository.TourRepository;
 import com.ssummit.repository.UserRepository;
-import org.apache.coyote.Request;
 import org.json.JSONObject;
-import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -16,8 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -106,7 +102,7 @@ public class TourService extends GenericService<Tour> {
         Map<String, LocalDateTime> scheduledCheckpointMarks = new HashMap<>();
         Set<CheckpointMark> checkpointMarks = getOne(tourId).getCheckpointMarks();
         for (CheckpointMark mark :
-             checkpointMarks) {
+                checkpointMarks) {
             scheduledCheckpointMarks.put(mark.getCheckpoint().getDescription(), mark.getScheduledMarkedTime());
         }
         return scheduledCheckpointMarks;
@@ -124,20 +120,22 @@ public class TourService extends GenericService<Tour> {
     public Map<LocalDateTime, String> getScheduledTours() {
         List<Tour> tours = repository.findAll();
         Map<LocalDateTime, String> tourSchedule = new HashMap<>();
-        for (Tour tour:
-             tours) {
+        for (Tour tour :
+                tours) {
             tourSchedule.put(tour.getStartDate(), tour.getDescription());
         }
         return tourSchedule;
     }
 
     public List<Tour> getAllActiveTour() {
-        return repository.findByStartDateBeforeAndEndDateAfter(LocalDateTime.now(),LocalDateTime.now());
+        return repository.findByStartDateBeforeAndEndDateAfter(LocalDateTime.now(), LocalDateTime.now());
     }
+
     public CheckpointMark getNowCheckpointMark(Long tourId) {
-        return checkpointMarkRepository.getFirstByTour_IdAndScheduledMarkedTimeBeforeAndActualMarkedTimeNullOrderByScheduledMarkedTimeAsc(tourId,LocalDateTime.now());
+        return checkpointMarkRepository.getFirstByTour_IdAndScheduledMarkedTimeBeforeAndActualMarkedTimeNullOrderByScheduledMarkedTimeAsc(tourId, LocalDateTime.now());
     }
-    public CheckpointMark getLastPassedCheckMark(Long tourId){
+
+    public CheckpointMark getLastPassedCheckMark(Long tourId) {
         return checkpointMarkRepository.getFirstByTour_IdAndActualMarkedTimeNotNullOrderByActualMarkedTimeAsc(tourId);
     }
 
@@ -156,8 +154,8 @@ public class TourService extends GenericService<Tour> {
         );
         Set<User> tourParticipants = getOne(tourId).getParticipants();
         Set<String> participantsNames = new HashSet<>();
-        for (User user:
-             tourParticipants) {
+        for (User user :
+                tourParticipants) {
             participantsNames.add(user.getFirstName() + " " + user.getLastName());
         }
         dto.setParticipants(participantsNames);
