@@ -1,0 +1,41 @@
+id,title,description,created_by,created_timestamp,deleted_by,deleted_timestamp,is_deleted,updated_by,updated_timestamp
+1,Кошки,"Сломают тебе ногу, если упадешь",ADMIN,2022-01-22,null,null,FALSE,null,null
+2,Ледоруб,Выглядит круто,ADMIN,2022-04-23,null,null,FALSE,null,null
+3,Рюкзак,Все твое всегда с тобой,ADMIN,2022-04-24,null,null,FALSE,null,null
+4,Каска,Второй череп,ADMIN,2022-04-24,null,null,FALSE,null,null
+5,Страховочная система,Ты ведь не Алекс Хоннольд,ADMIN,2022-01-03,null,null,FALSE,null,null
+6,Налобный фонарь,Чтобы найти свою палатку во тьме,ADMIN,2022-02-01,null,null,FALSE,null,null
+7,Спальник,Человекочехол,ADMIN,2022-02-27,null,null,FALSE,null,null
+8,Треккинговые палки,Как у бабушек в парке,ADMIN,2022-03-26,null,null,FALSE,null,null
+9,Горные очки,"Чтобы не ослепнуть, не потеряться и не умереть",ADMIN,2022-01-25,null,null,FALSE,null,null
+10,Горнолыжная маска,От снега в глазах,ADMIN,2022-01-02,null,null,FALSE,null,null
+11,Гамаши,От снега в носках,ADMIN,2022-03-19,null,null,FALSE,null,null
+12,Бахилы,Защита ног от мороза,ADMIN,2022-04-17,null,null,FALSE,null,null
+13,Коврик,Чтобы спать сухо,ADMIN,2022-02-18,null,null,FALSE,null,null
+14,Термос,Для чая,ADMIN,2022-01-11,null,null,FALSE,null,null
+15,Накидка на рюкзак,Можно мусорный пакет,ADMIN,2022-03-03,null,null,FALSE,null,null
+17,Горные ботинки,С рантами для кошек,ADMIN,2022-02-14,null,null,FALSE,null,null
+18,Теплая куртка,Цветную легче заметить в сугробе,ADMIN,2022-02-10,null,null,FALSE,null,null
+19,Теплые рукавицы,Чтобы выглядеть как пингвин,ADMIN,2022-04-10,null,null,FALSE,null,null
+20,Мембранная куртка,Чтобы не промокать,ADMIN,2022-01-02,null,null,FALSE,null,null
+21,Штаны софтшелл,Можно просто подштанники,ADMIN,2022-04-19,null,null,FALSE,null,null
+22,Термобелье тонкое,Красивое,ADMIN,2022-04-01,null,null,FALSE,null,null
+23,Термобелье толстое,Теплое,ADMIN,2022-03-20,null,null,FALSE,null,null
+24,Кофта,Просто кофта,ADMIN,2022-04-04,null,null,FALSE,null,null
+25,Легкие штаны или шорты,Ноги можно не брить,ADMIN,2022-04-16,null,null,FALSE,null,null
+26,Флисовый подшлемник,Чтобы шлем не превратился в терновый венок,ADMIN,2022-04-13,null,null,FALSE,null,null
+27,Рабочие перчатки,За пять рублей,ADMIN,2022-02-21,null,null,FALSE,null,null
+28,Треккинговые носки,"Компрессия, отвод влаги",ADMIN,2022-01-15,null,null,FALSE,null,null
+29,Шерстяные носки,Бери у бабули,ADMIN,2022-04-20,null,null,FALSE,null,null
+30,Тонкие перчатки,Завязать шнурки и не отморозить пальцы,ADMIN,2022-03-05,null,null,FALSE,null,null
+31,Кепка,Чтобы не сгорел нос,ADMIN,2022-04-27,null,null,FALSE,null,null
+32,Балаклава,Вдруг по дороге мы ограбим банк,ADMIN,2022-02-05,null,null,FALSE,null,null
+33,Синтетическая футболка,Быстро сохнет,ADMIN,2022-01-20,null,null,FALSE,null,null
+34,Компрессионные мешки,Уменьшают объем упакованной вещи,ADMIN,2022-02-14,null,null,FALSE,null,null
+36,Предметы личной гигиены,Чтобы не пахнуть,ADMIN,2022-04-16,null,null,FALSE,null,null
+37,КЛМН,Чтобы есть,ADMIN,2022-03-03,null,null,FALSE,null,null
+38,Герметичная упаковка для документов,Чтобы тебя могли опознать,ADMIN,2022-04-03,null,null,FALSE,null,null
+39,Индивидуальная аптечка,Чтобы не болеть,ADMIN,2022-03-15,null,null,FALSE,null,null
+40,Пластиковая бутылка для воды,Чтобы пить,ADMIN,2022-01-16,null,null,FALSE,null,null
+41,Плавки,Цветастое нравится девочкам,ADMIN,2022-02-03,null,null,FALSE,null,null
+42,Белье,Согреет самое дорогое,ADMIN,2022-02-27,null,null,FALSE,null,null
