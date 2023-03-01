@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @SecurityRequirement(name = "Bearer Authentication")
-@RequestMapping("/rest/route")
+@RequestMapping("/route")
 public class RouteController extends GenericController<Route, RouteDto> {
 	private final RouteService service;
 	private final RouteMapper mapper;

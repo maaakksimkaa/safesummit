@@ -107,6 +107,7 @@ public class TourController extends GenericController<Tour, TourDto> {
 		return service.getRouteCheckpoints(tourId);
 	}
 
+
 	@Operation(description = "Просмотреть расписание туров")
 	@GetMapping("/tour-get-scheduled-tours")
 	public Map<LocalDateTime, String> getScheduledTours() {
