@@ -12,9 +12,9 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TourGuidesAndParticipantsDto extends TourDto {
+public class TourGuidesAndParticipantsDto /*extends TourDto*/ {
 
-    private User primaryGuide;
-    private User secondaryGuide;
-    private Set<UserDto> participants;
+    private String primaryGuide;
+    private String secondaryGuide;
+    private Set<String> participants;
 }

@@ -57,7 +57,7 @@ public class UserController extends GenericController<User, UserDto> {
 
 	@Operation(description = "Зарегистрироваться на тур")
 	@PostMapping("/tour-register")
-	public UserDto addTour(@RequestBody AddTourDto addTourDto) {
+	public UserDto addTour(@RequestBody AddTourDto addTourDto) throws Exception {
 		return userWithToursMapper.toDto(service.addTour(addTourDto));
 	}
 

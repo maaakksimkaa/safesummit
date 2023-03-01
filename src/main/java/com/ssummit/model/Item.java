@@ -25,7 +25,7 @@ public class Item extends GenericModel {
     @Column(name = "brand")
     private String brand;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "item_type_id",
             foreignKey = @ForeignKey(name = "FK_ITEM_ITEMTYPE")

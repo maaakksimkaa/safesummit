@@ -17,3 +17,5 @@ public class CheckpointMarkDto extends GenericDto{
     private LocalDateTime actualMarkedTime;
     private CheckpointDto checkpoint;
 }
+
+//TODO удалить класс?

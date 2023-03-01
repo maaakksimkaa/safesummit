@@ -34,7 +34,7 @@ public class CheckpointMarkService {
 
 	public CheckpointMark markCheckpoint(MarkCheckpointDto markCheckpointDto) {
 		LocalDateTime actualMarkTime = markCheckpointDto.getActualMarkedTime();
-		CheckpointMark checkpointMark = repository.findById(markCheckpointDto.getCheckpointMarkId()).get();
+		CheckpointMark checkpointMark = repository.findById(markCheckpointDto.getCheckpointMarkId()).orElseThrow();
 		checkpointMark.setActualMarkedTime(actualMarkTime);
 		return update(checkpointMark);
 	}
