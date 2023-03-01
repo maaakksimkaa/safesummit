@@ -11,6 +11,9 @@ import java.util.Set;
 
 @Repository
 public interface CheckpointMarkRepository extends JpaRepository<CheckpointMark, Long> {
+	CheckpointMark getFirstByActualMarkedTimeNullAndActualMarkedTimeBeforeOrderByScheduledMarkedTimeDesc(LocalDateTime actualMarkedTime);
+	CheckpointMark getFirstByActualMarkedTimeNotNullOrderByActualMarkedTimeDesc();
+	CheckpointMark getFirstByScheduledMarkedTimeAndActualMarkedTimeNullOrderByScheduledMarkedTimeAsc(LocalDateTime scheduledMarkedTime);
 	CheckpointMark findFirstByScheduledMarkedTimeAndActualMarkedTimeAfterOrderByActualMarkedTimeAsc(@Nullable LocalDateTime scheduledMarkedTime, LocalDateTime actualMarkedTime);
 
     Set<CheckpointMark> findAllByIdIn(Set<Long> ids);

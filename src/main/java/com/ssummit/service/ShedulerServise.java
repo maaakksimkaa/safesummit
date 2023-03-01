@@ -8,6 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -38,16 +39,20 @@ public class ShedulerServise {
 
 
 	@Scheduled(cron = "0 0/1 * 1/1 * *") //Every 30 minutes
+	@Transactional()
 	public void generateMessage() {
 		List<Tour> list = tourService.getAllActiveTour();
 		for (int i = 0; i < list.size(); i++) {
 			Set<CheckpointMark> checkpointMarks = tourService.getOne(list.get(i).getId()).getCheckpointMarks();
-			CheckpointMark lastCheckpointMark = checkpointMarks.stream()
-					.max(Comparator.comparing(CheckpointMark::getActualMarkedTime))
-					.get();
-			CheckpointMark nowCheckpointMark = checkpointMarks.stream()
-					.min(Comparator.comparing(CheckpointMark::getScheduledMarkedTime))
-					.get();
+//			CheckpointMark nowCheckpointMark = checkpointMarks.stream()
+//					.min(Comparator.comparing(CheckpointMark::getScheduledMarkedTime))
+//					.get();
+			CheckpointMark nowCheckpointMark = tourService.getNowCheckpointMark();
+//			CheckpointMark lastCheckpointMark = checkpointMarks.stream()
+//					.max(Comparator.comparing(CheckpointMark::getActualMarkedTime))
+//					.get();
+			CheckpointMark lastCheckpointMark =tourService.getLastPassedCheckMark();
+
 			Message message = new Message();
 			message.setCreatedBy("ADMIN");
 			message.setCreatedDateTime(LocalDateTime.now());

@@ -4,12 +4,12 @@ import com.ssummit.dto.AddCheckpointMarkDto;
 import com.ssummit.dto.AddRouteDto;
 import com.ssummit.dto.AddTourDto;
 import com.ssummit.model.*;
+import com.ssummit.repository.CheckpointMarkRepository;
 import com.ssummit.repository.RouteRepository;
 import com.ssummit.repository.TourRepository;
 import com.ssummit.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,17 +18,19 @@ import java.util.stream.Collectors;
 @Service
 public class TourService extends GenericService<Tour> {
     private final TourRepository repository;
-    private final UserRepository repository1;
+    private final UserRepository userRepository;
     private final RouteRepository routeRepository;
     private final CheckpointMarkService checkpointMarkService;
+    private final CheckpointMarkRepository checkpointMarkRepository;
     private final CheckpointService checkpointService;
 
-    protected TourService(TourRepository repository, UserRepository userRepository, RouteRepository routeRepository, CheckpointMarkService checkpointMarkService, CheckpointService checkpointService) {
+    protected TourService(TourRepository repository, UserRepository userRepository, RouteRepository routeRepository, CheckpointMarkService checkpointMarkService, CheckpointMarkRepository checkpointMarkRepository, CheckpointService checkpointService) {
         super(repository);
         this.repository = repository;
-        this.repository1 = userRepository;
+        this.userRepository = userRepository;
         this.routeRepository = routeRepository;
         this.checkpointMarkService = checkpointMarkService;
+        this.checkpointMarkRepository = checkpointMarkRepository;
         this.checkpointService = checkpointService;
     }
 
@@ -41,14 +43,14 @@ public class TourService extends GenericService<Tour> {
     }
 
     public Tour setPrimaryGuide(AddTourDto addTourDto) {
-        User user = repository1.findById(addTourDto.getUserId()).get();
+        User user = userRepository.findById(addTourDto.getUserId()).get();
         Tour tour = getOne(addTourDto.getTourId());
         tour.setPrimaryGuide(user);
         return update(tour);
     }
 
     public Tour setSecondaryGuide(AddTourDto addTourDto) {
-        User user = repository1.findById(addTourDto.getUserId()).get();
+        User user = userRepository.findById(addTourDto.getUserId()).get();
         Tour tour = getOne(addTourDto.getTourId());
         tour.setSecondaryGuide(user);
         return update(tour);
@@ -106,5 +108,12 @@ public class TourService extends GenericService<Tour> {
     public List<Tour> getAllActiveTour() {
         return repository.findByStartDateBeforeAndEndDateAfter(LocalDateTime.now(),LocalDateTime.now());
     }
+    public CheckpointMark getNowCheckpointMark() {
+        return checkpointMarkRepository.getFirstByActualMarkedTimeNullAndActualMarkedTimeBeforeOrderByScheduledMarkedTimeDesc(LocalDateTime.now());
+    }
+    public CheckpointMark getLastPassedCheckMark(){
+        return checkpointMarkRepository.getFirstByActualMarkedTimeNotNullOrderByActualMarkedTimeDesc();
+    }
+
 
 }
