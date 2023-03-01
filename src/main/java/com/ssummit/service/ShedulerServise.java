@@ -37,7 +37,7 @@ public class ShedulerServise {
 	}
 
 
-	//	@Scheduled(cron = "0 0/1 * 1/1 * *") //Every 30 minutes
+	@Scheduled(cron = "0 0/1 * 1/1 * *") //Every 30 minutes
 	public void generateMessage() {
 		List<Tour> list = tourService.getAllActiveTour();
 		for (int i = 0; i < list.size(); i++) {
@@ -56,9 +56,10 @@ public class ShedulerServise {
 				message.setTitle("normal");
 				message.setDescription("Группа успешно прошла контрольную точку в заданное время");
 				messageService.create(message);
-				Set<User> users=list.get(i).getParticipants();
+				Set<User> users = list.get(i).getParticipants();
 				for (User user : users) {
-					sendMail(user.getEmail(),message.getTitle(),message.getDescription());}
+					sendMail(user.getEmail(), message.getTitle(), message.getDescription());
+				}
 				lastCheckpointMark.setMessageSend(true);
 			} else if ((!lastCheckpointMark.isMessageSend()
 					& lastCheckpointMark.getActualMarkedTime().isAfter(lastCheckpointMark.getScheduledMarkedTime()))) {
@@ -67,9 +68,10 @@ public class ShedulerServise {
 				message.setDescription("Группа успешно прошла контрольную точку с задержкой в " +
 						lastCheckpointMark.getScheduledMarkedTime().until(LocalDateTime.now(), ChronoUnit.MINUTES) + "минут");
 				messageService.create(message);
-				Set<User> users=list.get(i).getParticipants();
+				Set<User> users = list.get(i).getParticipants();
 				for (User user : users) {
-					sendMail(user.getEmail(),message.getTitle(),message.getDescription());}
+					sendMail(user.getEmail(), message.getTitle(), message.getDescription());
+				}
 				lastCheckpointMark.setMessageSend(true);
 			} else if ((nowCheckpointMark.getScheduledMarkedTime().isBefore(LocalDateTime.now())
 					& nowCheckpointMark.getScheduledMarkedTime().until(LocalDateTime.now(), ChronoUnit.MINUTES) < 360)) {
@@ -78,9 +80,10 @@ public class ShedulerServise {
 				message.setDescription("Не пройдена контрольная точка. Задержка более " +
 						nowCheckpointMark.getScheduledMarkedTime().until(LocalDateTime.now(), ChronoUnit.MINUTES) + "минут");
 				messageService.create(message);
-				Set<User> users=list.get(i).getParticipants();
+				Set<User> users = list.get(i).getParticipants();
 				for (User user : users) {
-					sendMail(user.getEmail(),message.getTitle(),message.getDescription());}
+					sendMail(user.getEmail(), message.getTitle(), message.getDescription());
+				}
 			} else if ((nowCheckpointMark.getScheduledMarkedTime().isBefore(LocalDateTime.now())
 					& nowCheckpointMark.getScheduledMarkedTime().until(LocalDateTime.now(), ChronoUnit.MINUTES) >= 360)) {
 				message.setMessageType(messageTypeService.getOne(2L));
@@ -88,14 +91,16 @@ public class ShedulerServise {
 				message.setDescription("Тревога! Не пройдена контрольная точка. Задержка более " +
 						nowCheckpointMark.getScheduledMarkedTime().until(LocalDateTime.now(), ChronoUnit.HOURS) + "часов");
 				messageService.create(message);
-				Set<User> users=list.get(i).getParticipants();
+				sendMail("MCHS@MCHS.78.ru", message.getTitle(), message.getDescription()); //почта от фонаря, только для примера кода
+				Set<User> users = list.get(i).getParticipants();
 				for (User user : users) {
-					sendMail(user.getEmail(),message.getTitle(),message.getDescription());}
+					sendMail(user.getEmail(), message.getTitle(), message.getDescription());
+				}
 			}
 		}
 	}
 
-	public void sendMail(String email, String subject, String text){
+	public void sendMail(String email, String subject, String text) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(email);
 		message.setSubject(subject);

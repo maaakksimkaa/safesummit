@@ -112,7 +112,7 @@ create table routes
     id                bigint not null
         primary key,
     category          varchar(255),
-    duration          interval day,
+    duration          integer,
     title             varchar(255),
     description       text,
     created_by        varchar(255),
