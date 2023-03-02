@@ -82,13 +82,13 @@ public class UserController extends GenericController<User, UserDto> {
 		return service.getAllParticipants().stream().map(userWithToursMapper::toDto).toList();
 	}
 	@GetMapping("/restore-password")
-	public String rememberPassword() {
-		return "rememberPassword";
+	public String restorePassword() {
+		return "restore password";
 	}
 
 	@PostMapping("/restore-password")
-	public String rememberPassword(@ModelAttribute("email") RestorePasswordWithEmailDTO rememberPasswordDto) {
-		UserDto userDto = userMapper.toDto(service.getUserByEmail(rememberPasswordDto.getEmail()));
+	public String restorePassword(@ModelAttribute("email") RestorePasswordWithEmailDTO restorePasswordWithEmailDTO) {
+		UserDto userDto = userMapper.toDto(service.getUserByEmail(restorePasswordWithEmailDTO.getEmail()));
 		if(Objects.isNull(userDto)) {
 			return "redirect:/error-with-message?message=User not found";
 		} else {

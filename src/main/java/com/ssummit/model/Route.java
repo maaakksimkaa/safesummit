@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import lombok.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class Route extends GenericModel {
 	@Column(name = "title")
 	private String title;
 
-	@Column(name = "description")
+	@Column(name = "description", columnDefinition="TEXT")
 	private String description;
 
 	@Column(name = "duration")

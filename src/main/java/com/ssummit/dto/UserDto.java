@@ -2,9 +2,8 @@ package com.ssummit.dto;
 
 import lombok.*;
 
-import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -25,9 +24,6 @@ public class UserDto extends GenericDto {
 
     @NotBlank(message = "Поле не должно быть пустым")
     private LocalDate birthDate;
-
-//    @NotBlank(message = "Поле не должно быть пустым")
-//    private Date birthDate;
 
     @NotBlank(message = "Поле не должно быть пустым")
     private String phone;

@@ -1,0 +1,5 @@
+id,title,description,start_date,end_date,primary_guide_user_id,secondary_guide_user_id,route_id,tour_application_id,tour_equipment_id,created_by,created_timestamp,deleted_by,deleted_timestamp,is_deleted,updated_by,updated_timestamp
+1,route_1_tour_1,Подъем на Каракут,2022-06-25 10:00:00.000000,2022-06-25 18:00:00.000000,103,108,100,1,1,ADMIN,2022-05-20 15:43:00.000000,null,,false,null,
+2,route_2_tour_1,На квадриках вокруг Каракута,0022-07-10 09:00:00.000000,2022-07-10 20:00:00.000000,103,108,102,2,2,ADMIN,2022-06-15 10:11:00.000000,null,,false,null,
+4,route_1_tour_3,ПОдъем на Каракут,2023-03-02 14:00:00.000000,2023-03-03 20:00:00.710000,120,121,100,,,ADMIN,2023-03-01 13:50:39.000000,,,false,,
+3,route_1_tour_2,ПОдъем на Каракут,2023-03-01 14:00:00.000000,2023-03-01 20:00:00.710000,120,121,100,,,ADMIN,2023-03-01 13:50:39.000000,,,false,,

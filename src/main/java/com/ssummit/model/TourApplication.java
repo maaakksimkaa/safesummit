@@ -19,7 +19,7 @@ public class TourApplication extends GenericModel {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition="TEXT")
     private String desctiption;
 
     @Column(name = "outcoming_post_number")
