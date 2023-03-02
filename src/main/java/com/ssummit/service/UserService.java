@@ -26,6 +26,7 @@ public class UserService extends GenericService<User> {
 	private final JavaMailSender javaMailSender;
 	private final RoleService roleService;
 
+
 //	public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, TourRepository tourRepository, TourService tourService, RoleRepository roleRepository, JavaMailSender javaMailSender) {
 //		super(userRepository);
 //		this.userRepository = userRepository;
