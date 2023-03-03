@@ -4,6 +4,7 @@ package com.ssummit.service;
 import com.ssummit.model.Role;
 import com.ssummit.repository.RoleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

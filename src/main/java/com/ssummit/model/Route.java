@@ -33,7 +33,7 @@ public class Route extends GenericModel {
 	@Column(name = "ow_city_id")
 	private String oWCityId;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "route_checkpoints",
 			joinColumns = @JoinColumn(name = "route_id"),
@@ -44,7 +44,7 @@ public class Route extends GenericModel {
 	)
 	private Set<Checkpoint> routeCheckpoints = new HashSet<>();
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "required_item_types",
 			joinColumns = @JoinColumn(name = "route_id"),

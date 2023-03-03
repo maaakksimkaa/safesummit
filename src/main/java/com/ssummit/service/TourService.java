@@ -9,6 +9,7 @@ import com.ssummit.repository.TourRepository;
 import com.ssummit.repository.UserRepository;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
 
 import java.io.BufferedReader;
@@ -65,6 +66,7 @@ public class TourService extends GenericService<Tour> {
         super.update(tour);
     }
 
+    @Transactional
     public String getTourDescription(Long id) {
         return getOne(id).getDescription();
     }

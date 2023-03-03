@@ -17,7 +17,7 @@ import java.util.Set;
 
 @Component
 public class ShedulerServise {
-
+    /*
     private final UserService userService;
     private final TourService tourService;
     private final MessageService messageService;
@@ -116,4 +116,6 @@ public class ShedulerServise {
         message.setText(text);
         javaMailSender.send(message);
     }
+
+     */
 }

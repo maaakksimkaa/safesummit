@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
-@Lazy
+//@Lazy
 @EnableGlobalMethodSecurity(securedEnabled = true,
         jsr250Enabled = true,
         prePostEnabled = true)
@@ -38,8 +38,8 @@ public class JwtSecurityConfig
             "/img/**",
             "/js/**",
             "/api/authorization",
-            "/user/registration",
-            "/user/updatePassword"
+            "/api/registration",
+            "/api/update"
     };
 
     private final JwtTokenFilter jwtTokenFilter;
@@ -80,7 +80,7 @@ public class JwtSecurityConfig
                         "/user/registration",
                         "/user/create-spectator",
                         "/update/{id}",
-                        "/get/{id}").hasRole("CLIENT")
+                        "/get/{id}").hasRole("PARTICIPANT")
                 .antMatchers("/tour/set-route",
                         "/tour/tour_equipment/{tourId}",
                         "/tour/tour-get-guides-and-participants/{tourId}")
