@@ -120,13 +120,10 @@ public class TourController extends GenericController<Tour, TourDto> {
 		return service.getRequiredItemTypes(tourId);
 	}
 
-	@Operation(description = "Прикрепить регистрацию в МЧС")
-	@GetMapping("/tour-add-tour-application{tourId}")
-	public Tour addTourApplication(@RequestBody CreateTourApplicationDto createTourApplicationDto, @PathVariable Long tourId) {
-		TourApplication tourApplication = tourApplicationService.create(createTourApplicationDto);
-		Tour tour = service.getOne(tourId);
-		tour.setTourApplication(tourApplication);
-		return tour;
+	@Operation(description = "Заполнить заявку на регистрацию в МЧС")
+	@GetMapping("/tour-fill-tour-application{tourId}")
+	public String addTourApplication(@PathVariable Long tourId) {
+		return tourApplicationService.sendTourApplication(tourId);
 	}
 
 	@Operation(description = "Финальная проверка перед выходом")

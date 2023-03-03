@@ -1,5 +1,7 @@
 package com.ssummit;
 
+import com.ssummit.service.TourService;
+import com.ssummit.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

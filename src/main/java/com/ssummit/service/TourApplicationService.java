@@ -1,6 +1,9 @@
 package com.ssummit.service;
 
-import com.ssummit.dto.CreateTourApplicationDto;
+import com.aspose.words.Document;
+import com.aspose.words.ReportingEngine;
+import com.ssummit.TourApplicatoinTemplateFiller;
+import com.ssummit.model.Tour;
 import com.ssummit.model.TourApplication;
 import com.ssummit.repository.TourApplicationRepository;
 import org.springframework.stereotype.Service;
@@ -9,20 +12,40 @@ import org.webjars.NotFoundException;
 @Service
 public class TourApplicationService extends GenericService<TourApplication> {
 	private final TourApplicationRepository repository;
-	protected TourApplicationService (TourApplicationRepository repository){
+	private final TourService tourService;
+	protected TourApplicationService (TourApplicationRepository repository, TourService tourService){
 		super(repository);
 		this.repository=repository;
+		this.tourService = tourService;
 	}
 
-	public TourApplication create(CreateTourApplicationDto createTourApplicationDto) {
-		TourApplication tourApplication = new TourApplication();
-		tourApplication.setTitle(createTourApplicationDto.getTitle());
-		tourApplication.setDesctiption(createTourApplicationDto.getDescription());
-		tourApplication.setOutcomingPostNumber(createTourApplicationDto.getOutcomingPostNumber());
-		tourApplication.setApplicationDate(createTourApplicationDto.getApplicationDate());
-		tourApplication.setIncomingPostNumber(createTourApplicationDto.getIncomingPostNumber());
-		tourApplication.setApplicationRegistrationDate(createTourApplicationDto.getApplicationRegistrationDate());
-		return create(tourApplication);
+	public String sendTourApplication(Long tourId) {
+		Tour tour = tourService.getOne(tourId);
+		TourApplication tA = new TourApplication();
+		tA.setCreatedBy("ADMIN");
+		tA.setUpdatedBy("ADMIN");
+		tA.setDesctiption(tour.getDescription());
+		repository.save(tA);
+		Document doc;
+		try {
+			doc = new Document("src/main/resources/tour_application_template.docx");
+		} catch (Exception e) {
+			return "Шаблон заявки не найден";
+		}
+		TourApplicatoinTemplateFiller tourApplicatoinTemplateFiller = new TourApplicatoinTemplateFiller(tour, tA);
+		ReportingEngine reportingEngine = new ReportingEngine();
+		try {
+			reportingEngine.buildReport(doc, tourApplicatoinTemplateFiller, "s");
+		} catch (Exception e) {
+			return "Не удалось заполнить шаблон заявки";
+		}
+		try {
+			doc.save(tour.getTitle() + "_заявка в МЧС.docx");
+		} catch (Exception e) {
+			return "Не удалось сохранить файл";
+		}
+
+		return "Заявка на регистрацию группы заполнена и сохранена";
 	}
 
 	@Override
