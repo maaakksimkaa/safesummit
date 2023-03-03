@@ -19,10 +19,8 @@ import java.util.List;
 public class CheckpointMarkController {
 
 	private final CheckpointMarkService service;
-	private final CheckpointMarkMapper mapper;
 
 	public CheckpointMarkController(CheckpointMarkService service, CheckpointMarkMapper mapper) {
-		this.mapper = mapper;
 		this.service = service;
 	}
 

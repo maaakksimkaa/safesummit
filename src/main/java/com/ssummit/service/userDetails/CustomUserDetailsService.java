@@ -32,7 +32,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         else {
             User user = userRepository.findUserByLogin(username);
             List<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority("ROLE_CLIENT"));
+            switch (user.getRole().getId().intValue()) {
+                case 2 -> authorities.add(new SimpleGrantedAuthority("ROLE_PARTICIPANT"));
+                case 3 -> authorities.add(new SimpleGrantedAuthority("ROLE_GUIDE"));
+                case 4 -> authorities.add(new SimpleGrantedAuthority("ROLE_SPECTATOR"));
+            }
             return new CustomUserDetails(user.getId().intValue(), username, user.getPassword(), authorities);
         }
     }

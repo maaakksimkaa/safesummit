@@ -48,7 +48,7 @@ public class TourController extends GenericController<Tour, TourDto> {
 	}
 
 	@Operation(description = "Просмотреть информацию о походе")
-	@GetMapping("/tour_description/{tourId}")
+	@GetMapping("/tour-description/{tourId}")
 	public String getTourDescription(@PathVariable Long tourId) {
 		return service.getTourDescription(tourId);
 	}
@@ -84,7 +84,7 @@ public class TourController extends GenericController<Tour, TourDto> {
 	}
 
 	@Operation(description = "Просмотреть список контрольных точек похода")
-	@GetMapping("/tour_checkpoints_marks/{tourId}")
+	@GetMapping("/tour-checkpoints-marks/{tourId}")
 	public Map<String, LocalDateTime> getCheckpointsMarks(@PathVariable Long tourId) {
 		return service.getScheduledCheckpointMarks(tourId);
 	}
@@ -120,13 +120,10 @@ public class TourController extends GenericController<Tour, TourDto> {
 		return service.getRequiredItemTypes(tourId);
 	}
 
-	@Operation(description = "Прикрепить регистрацию в МЧС")
-	@GetMapping("/tour-add-tour-application{tourId}")
-	public Tour addTourApplication(@RequestBody CreateTourApplicationDto createTourApplicationDto, @PathVariable Long tourId) {
-		TourApplication tourApplication = tourApplicationService.create(createTourApplicationDto);
-		Tour tour = service.getOne(tourId);
-		tour.setTourApplication(tourApplication);
-		return tour;
+	@Operation(description = "Заполнить заявку на регистрацию в МЧС")
+	@PostMapping("/tour-fill-tour-application{tourId}")
+	public String addTourApplication(@PathVariable Long tourId) {
+		return tourApplicationService.sendTourApplication(tourId);
 	}
 
 	@Operation(description = "Финальная проверка перед выходом")

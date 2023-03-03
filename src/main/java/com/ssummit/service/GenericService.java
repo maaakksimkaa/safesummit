@@ -5,6 +5,8 @@ import com.ssummit.repository.GenericRepository;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import org.springframework.transaction.annotation.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -26,23 +28,33 @@ public abstract class GenericService<T extends GenericModel> {
 	}
 
 	public List<T> listAll() {
-		return repository.findAll();
+		return repository.findAll().stream().filter(obj -> !obj.getIsDeleted()).toList();
 	}
 
 	public T getOne(Long id) {
-		return repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + " not found"));
+		T object = repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + " not found"));
+		if (object.getIsDeleted()) {
+			throw new NotFoundException("Row with such ID: " + id + " was deleted");
+		}
+		return object;
 	}
 
 	public T create(T object) {
+		object.setIsDeleted(false);
+		object.setCreatedDateTime(LocalDateTime.now());
+		object.setUpdatedDateTime(LocalDateTime.now());
 		return repository.save(object);
 	}
 
 	public T update(T object) {
+		object.setUpdatedDateTime(LocalDateTime.now());
 		return repository.save(object);
 	}
 
 	public void delete(Long id) {
-		repository.deleteById(id);
+		T object = repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + " not found"));
+		object.setIsDeleted(true);
+		repository.save(object);
 	}
 
 }

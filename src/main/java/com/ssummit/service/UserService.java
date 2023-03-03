@@ -4,8 +4,6 @@ import com.ssummit.dto.AddTourDto;
 import com.ssummit.dto.LoginDTO;
 import com.ssummit.model.Tour;
 import com.ssummit.model.User;
-import com.ssummit.repository.RoleRepository;
-import com.ssummit.repository.TourRepository;
 import com.ssummit.repository.UserRepository;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,26 +18,18 @@ import java.util.UUID;
 public class UserService extends GenericService<User> {
 	private final UserRepository repository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
-	private final TourRepository tourRepository;
 	private final TourService tourService;
-	private final RoleRepository roleRepository;
 	private final JavaMailSender javaMailSender;
 	private final RoleService roleService;
 
-//	public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, TourRepository tourRepository, TourService tourService, RoleRepository roleRepository, JavaMailSender javaMailSender) {
-//		super(userRepository);
-//		this.userRepository = userRepository;
-//		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-	protected UserService (UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository repository,
-						   TourRepository tourRepository,
+
+	protected UserService (BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository repository,
 						   TourService tourService,
-						   RoleRepository roleRepository, RoleService roleService, JavaMailSender javaMailSender){
+						   RoleService roleService, JavaMailSender javaMailSender){
 		super(repository);
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-		this.tourRepository = tourRepository;
 		this.tourService = tourService;
 		this.repository = repository;
-		this.roleRepository = roleRepository;
 		this.javaMailSender = javaMailSender;
 		this.roleService = roleService;
 	}
@@ -47,7 +37,6 @@ public class UserService extends GenericService<User> {
 	@Override
 	public User create(User user) {
 		user.setCreatedBy("REGISTRATION");
-		user.setIsDeleted(false);
 		user.setRole(roleService.getOne(2L));
 		//user.setPassword();
 		return repository.save(user);
