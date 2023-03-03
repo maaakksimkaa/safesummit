@@ -182,7 +182,7 @@ public class TourService extends GenericService<Tour> {
             return "На данный поход не назначено ни одного гида!";
         }
         if ((Objects.isNull(tour.getPrimaryGuide()) || Objects.isNull(tour.getSecondaryGuide()))
-                && tour.getParticipants().size() > TourSafetySettings.MAXIMUM_PARTICIPANTS_PER_ONE_GUIDE) {
+                && tour.getParticipants().size() > TourSafetySettings.maximumParticipantsPerOneGuide) {
             return "Одного гида недостаточно для такого количества участников!";
         }
         if (Objects.isNull(tour.getCheckpointMarks())) {
@@ -208,20 +208,18 @@ public class TourService extends GenericService<Tour> {
     private boolean isWeatherSafe(String cityId) throws IOException {
         JSONObject obj = getWeatherData(cityId);
         Double wind = obj.getJSONObject("wind").getDouble("speed");
-        return wind.compareTo(TourSafetySettings.CRITICAL_WINDSPEED) < 0;
+        return wind.compareTo(TourSafetySettings.criticalWindSpeed) < 0;
     }
 
     private JSONObject getWeatherData(String cityId) throws IOException {
-        URL requestUrl = new URL(
-                "https://api.openweathermap.org/data/2.5/weather?id="
+        URL requestUrl = new URL("https://api.openweathermap.org/data/2.5/weather?id="
                         + cityId +
-                        "&appid=" + TourSafetySettings.OPENWEATHER_API_KEY);
-
-        HttpURLConnection connection = null;
+                        "&appid=" + TourSafetySettings.openweatherApiKey);
+        HttpURLConnection connection;
         connection = (HttpURLConnection) requestUrl.openConnection();
         connection.connect();
         InputStream in;
-        int status = 0;
+        int status;
         status = connection.getResponseCode();
         if (status != HttpURLConnection.HTTP_OK) {
             in = connection.getErrorStream();

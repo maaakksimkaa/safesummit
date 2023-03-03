@@ -2,7 +2,7 @@ package com.ssummit.service;
 
 import com.aspose.words.Document;
 import com.aspose.words.ReportingEngine;
-import com.ssummit.TourApplicatoinTemplateFiller;
+import com.ssummit.TourApplicationTemplateFiller;
 import com.ssummit.model.Tour;
 import com.ssummit.model.TourApplication;
 import com.ssummit.repository.TourApplicationRepository;
@@ -32,12 +32,12 @@ public class TourApplicationService extends GenericService<TourApplication> {
 		} catch (Exception e) {
 			return "Шаблон заявки не найден";
 		}
-		TourApplicatoinTemplateFiller tourApplicatoinTemplateFiller = new TourApplicatoinTemplateFiller(tour, tA);
+		TourApplicationTemplateFiller tourApplicationTemplateFiller = new TourApplicationTemplateFiller(tour, tA);
 		ReportingEngine reportingEngine = new ReportingEngine();
 		try {
-			reportingEngine.buildReport(doc, tourApplicatoinTemplateFiller, "s");
+			reportingEngine.buildReport(doc, tourApplicationTemplateFiller, "s");
 		} catch (Exception e) {
-			return "Не удалось заполнить шаблон заявки";
+			return "Не удалось заполнить шаблон заявки" + e.getMessage();
 		}
 		try {
 			doc.save(tour.getTitle() + "_заявка в МЧС.docx");

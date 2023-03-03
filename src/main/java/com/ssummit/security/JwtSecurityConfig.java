@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
-//@Lazy
+@Lazy
 @EnableGlobalMethodSecurity(securedEnabled = true,
         jsr250Enabled = true,
         prePostEnabled = true)

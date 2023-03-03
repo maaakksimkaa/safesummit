@@ -1,15 +1,16 @@
 package com.ssummit.config;
 
-import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
-@ConfigurationProperties(prefix = "settings")
-@Component
-@Data
+@ConfigurationProperties(prefix = "safety")
 public class TourSafetySettings {
 
-    public static Double CRITICAL_WINDSPEED;
-    public static String OPENWEATHER_API_KEY;
-    public static int MAXIMUM_PARTICIPANTS_PER_ONE_GUIDE;
+    @Value( "${safety.critical-wind-speed}" )
+    public static Double criticalWindSpeed;
+    @Value( "${safety.openweather-api-key}" )
+    public static String openweatherApiKey;
+    @Value( "${safety.maximum-participants-per-one-guide}" )
+    public static int maximumParticipantsPerOneGuide;
+
 }
