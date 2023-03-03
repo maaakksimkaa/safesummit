@@ -18,66 +18,95 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 @Lazy
 @EnableGlobalMethodSecurity(securedEnabled = true,
-                            jsr250Enabled = true,
-                            prePostEnabled = true)
+        jsr250Enabled = true,
+        prePostEnabled = true)
 public class JwtSecurityConfig
-      implements WebMvcConfigurer {
+        implements WebMvcConfigurer {
 
     private static final String[] AUTH_WHITELIST = {
-         // -- Swagger UI v2
-          "/v2/api-docs",
-          "/swagger-resources",
-          "/swagger-resources/**",
-          "/configuration/ui",
-          "/configuration/security",
-          "/swagger-ui.html",
-          "/swagger-ui.html/**",
-          "/webjars/**",
-          // -- Swagger UI v3 (OpenAPI)
-          "/v3/api-docs/**",
-          "/swagger-ui/**",
-          "/css/**",
-          "/img/**",
-          "/js/**",
-          "/encode/*",
-          "/login"
-         // other public endpoints of your API may be appended to this array
-   };
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/swagger-ui.html/**",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/css/**",
+            "/img/**",
+            "/js/**",
+            "/api/authorization",
+            "/user/registration",
+            "/user/updatePassword"
+    };
 
     private final JwtTokenFilter jwtTokenFilter;
 
     public JwtSecurityConfig(JwtTokenFilter jwtTokenFilter) {
         this.jwtTokenFilter = jwtTokenFilter;
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
-   }
+    }
 
     @Bean
     public SecurityFilterChain filterChainJwt(HttpSecurity http) throws Exception {
         http
-        .cors().and()
-        .csrf().disable()
-        //включаем базовую авторизацию
-        .httpBasic()
-        .and()
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .authorizeRequests()
-        //Доступ для всех пользователей
-        .antMatchers(AUTH_WHITELIST).permitAll()
-        .and()
-        .exceptionHandling()
-        .authenticationEntryPoint((request, response, ex) -> response.sendError(
-            HttpServletResponse.SC_UNAUTHORIZED,
-            ex.getMessage()
-        ))
-        .and().authorizeRequests()
-        //Доступ только для авторизованных пользователей
-        .antMatchers("/role/**").hasRole("CLIENT") //руты которые доступны юзеру
-        .anyRequest().permitAll()
-        .and()
-        .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-    return http.build();
+                .cors().and()
+                .csrf().disable()
+                //включаем базовую авторизацию
+                .httpBasic()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                //Доступ для всех пользователей
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint((request, response, ex) -> response.sendError(
+                        HttpServletResponse.SC_UNAUTHORIZED,
+                        ex.getMessage()
+                ))
+                .and().authorizeRequests()
+                //Доступ только для авторизованных пользователей
+                .antMatchers("/tour/tour_description/{tourId}",
+                        "/user/tour-revoke",
+                        "/user/scheduled_tours",
+                        "/tour/tour-register",
+                        "/user/restore-password",
+                        "/user//change-password",
+                        "/user/registration",
+                        "/user/create-spectator",
+                        "/update/{id}",
+                        "/get/{id}").hasRole("CLIENT")
+                .antMatchers("/tour/set-route",
+                        "/tour/tour_equipment/{tourId}",
+                        "/tour/tour-get-guides-and-participants/{tourId}")
+                .hasRole("GUIDE")
+                .antMatchers("/tour/tour_checkpoints_marks/{tourId}",
+                        "/tour/tour-last-checkpoint/{tourId}",
+                        "/user/restore-password")
+                .hasRole("SPECTATOR")
+                .antMatchers("/user/**",
+                        "/tour/**",
+                        "/tour-equipment/**",
+                        "/tour-application/**",
+                        "/route/**",
+                        "/role/**",
+                        "/message-type/**",
+                        "/message/**",
+                        "/checkpoint-mark/**",
+                        "/item-type/**",
+                        "/item/**",
+                        "/checkpoint/**"
+                )
+                .hasRole("ADMIN")
+                .anyRequest().permitAll()
+                .and()
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
 
     }
 }
