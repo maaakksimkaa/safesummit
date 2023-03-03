@@ -28,7 +28,7 @@ public class ItemType extends GenericModel{
     @Column(name = "description", columnDefinition="TEXT")
     private String description;
 
-    @ManyToMany(mappedBy = "requiredItemTypes", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToMany(mappedBy = "requiredItemTypes", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JsonIgnore
     private Set<Route> routes = new HashSet<>();
 

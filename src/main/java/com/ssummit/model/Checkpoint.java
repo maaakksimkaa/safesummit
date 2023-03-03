@@ -29,7 +29,7 @@ public class Checkpoint extends GenericModel {
 
     @Column(name = "longitude")
     private Double longitude;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinTable(
             name = "route_checkpoints",

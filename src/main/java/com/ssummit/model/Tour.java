@@ -38,7 +38,7 @@ public class Tour extends GenericModel {
     )
     private User secondaryGuide;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "tour_participants",
             joinColumns = @JoinColumn(name = "tour_id"),
@@ -75,7 +75,7 @@ public class Tour extends GenericModel {
     )
     private TourEquipment tourEquipment;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "tour_checkpoint_marks",
             foreignKey = @ForeignKey(name = "FK_TOURS_CHECKPOINT_MARKS")

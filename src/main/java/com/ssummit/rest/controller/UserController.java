@@ -8,8 +8,8 @@ import com.ssummit.mapper.UserMapper;
 import com.ssummit.mapper.UserWithToursMapper;
 import com.ssummit.model.User;
 import com.ssummit.service.UserService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -108,6 +108,5 @@ public class UserController extends GenericController<User, UserDto> {
         service.changePassword(uuid, userDto.getPassword());
         return "redirect:/login";
     }
-
 
 }

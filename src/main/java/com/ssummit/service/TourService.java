@@ -1,5 +1,6 @@
 package com.ssummit.service;
 
+import com.ssummit.config.TourSafetySettings;
 import com.ssummit.dto.*;
 import com.ssummit.model.*;
 import com.ssummit.repository.CheckpointMarkRepository;
@@ -8,6 +9,8 @@ import com.ssummit.repository.TourRepository;
 import com.ssummit.repository.UserRepository;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.webjars.NotFoundException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,29 +50,38 @@ public class TourService extends GenericService<Tour> {
         tour.setStartDate(scheduleTourDto.getStartDate());
         tour.setEndDate(scheduleTourDto.getStartDate().plusDays(tour.getRoute().getDuration()));
         tour.setCreatedBy("ADMIN");
-        tour.setCreatedDateTime(LocalDateTime.now());
-        tour.setUpdatedDateTime(LocalDateTime.now());
-        tour.setIsDeleted(false);
         return create(tour);
     }
 
+    @Override
+    public Tour update(Tour tour) {
+        tour.setUpdatedBy("ADMIN");
+        return super.update(tour);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Tour tour = repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + "not found"));
+        tour.setUpdatedBy("ADMIN");
+        super.update(tour);
+    }
+
+    @Transactional
     public String getTourDescription(Long id) {
         return getOne(id).getDescription();
     }
 
-    public TourEquipment getRequiredItems(Long tourId) {
-        return getOne(tourId).getTourEquipment();
-    }
-
     public Tour setPrimaryGuide(AddTourDto addTourDto) {
-        User user = userRepository.findById(addTourDto.getUserId()).orElseThrow();
+        User user = userRepository.findById(addTourDto.getUserId()).orElseThrow(()
+                -> new NotFoundException("Пользователь с таким ID: " + addTourDto.getUserId() + " не найден"));
         Tour tour = getOne(addTourDto.getTourId());
         tour.setPrimaryGuide(user);
         return update(tour);
     }
 
     public Tour setSecondaryGuide(AddTourDto addTourDto) {
-        User user = userRepository.findById(addTourDto.getUserId()).orElseThrow();
+        User user = userRepository.findById(addTourDto.getUserId()).orElseThrow(()
+                -> new NotFoundException("Пользователь с таким ID: " + addTourDto.getUserId() + " не найден"));
         Tour tour = getOne(addTourDto.getTourId());
         tour.setSecondaryGuide(user);
         return update(tour);
@@ -77,7 +89,8 @@ public class TourService extends GenericService<Tour> {
 
     public Tour setRoute(AddRouteDto addRouteDto) {
         Tour tour = getOne(addRouteDto.getTourId());
-        Route route = routeRepository.findById(addRouteDto.getRouteId()).orElseThrow();
+        Route route = routeRepository.findById(addRouteDto.getRouteId()).orElseThrow(()
+                -> new NotFoundException("Маршрут с таким ID: " + addRouteDto.getRouteId() + " не найден"));
         tour.setRoute(route);
         return update(tour);
     }
@@ -169,7 +182,7 @@ public class TourService extends GenericService<Tour> {
             return "На данный поход не назначено ни одного гида!";
         }
         if ((Objects.isNull(tour.getPrimaryGuide()) || Objects.isNull(tour.getSecondaryGuide()))
-                && tour.getParticipants().size() > 5) {
+                && tour.getParticipants().size() > TourSafetySettings.MAXIMUM_PARTICIPANTS_PER_ONE_GUIDE) {
             return "Одного гида недостаточно для такого количества участников!";
         }
         if (Objects.isNull(tour.getCheckpointMarks())) {
@@ -195,11 +208,14 @@ public class TourService extends GenericService<Tour> {
     private boolean isWeatherSafe(String cityId) throws IOException {
         JSONObject obj = getWeatherData(cityId);
         Double wind = obj.getJSONObject("wind").getDouble("speed");
-        return wind.compareTo(15.0) < 0;
+        return wind.compareTo(TourSafetySettings.CRITICAL_WINDSPEED) < 0;
     }
 
     private JSONObject getWeatherData(String cityId) throws IOException {
-        URL requestUrl = new URL("https://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&appid=98699fa04f026a7730f87b9b026cecdf");
+        URL requestUrl = new URL(
+                "https://api.openweathermap.org/data/2.5/weather?id="
+                        + cityId +
+                        "&appid=" + TourSafetySettings.OPENWEATHER_API_KEY);
 
         HttpURLConnection connection = null;
         connection = (HttpURLConnection) requestUrl.openConnection();
