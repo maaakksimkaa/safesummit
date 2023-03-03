@@ -3,13 +3,10 @@ package com.ssummit;
 import com.ssummit.model.Tour;
 import com.ssummit.model.TourApplication;
 import com.ssummit.model.User;
-import lombok.Getter;
 
-import java.time.LocalDate;
 import java.util.Set;
 
-@Getter
-public class TourApplicatoinTemplateFiller {
+public class TourApplicationTemplateFiller {
 
     private String applicationDate;
     private String firstGuideLastName;
@@ -23,8 +20,8 @@ public class TourApplicatoinTemplateFiller {
     private String startDate;
     private String endDate;
 
-    public TourApplicatoinTemplateFiller(Tour tour, TourApplication tourApplication) {
-        this.applicationDate = LocalDate.now().toString();
+    public TourApplicationTemplateFiller(Tour tour, TourApplication tourApplication) {
+        this.applicationDate = "LocalDate.now().toString()";
         this.firstGuideLastName = tour.getPrimaryGuide().getLastName();
         this.firstGuideName = tour.getPrimaryGuide().getFirstName();
         this.firstGuideMiddleName = tour.getPrimaryGuide().getMiddleName();
@@ -53,5 +50,49 @@ public class TourApplicatoinTemplateFiller {
         }
         this.participantsListAsString = participantsAsString.toString();
 
+    }
+
+    public String getApplicationDate() {
+        return applicationDate;
+    }
+
+    public String getFirstGuideLastName() {
+        return firstGuideLastName;
+    }
+
+    public String getFirstGuideName() {
+        return firstGuideName;
+    }
+
+    public String getFirstGuideMiddleName() {
+        return firstGuideMiddleName;
+    }
+
+    public String getFirstGuideAddress() {
+        return firstGuideAddress;
+    }
+
+    public String getFirstGuidePhone() {
+        return firstGuidePhone;
+    }
+
+    public String getParticipantsListAsString() {
+        return participantsListAsString;
+    }
+
+    public String getParticipantsAmount() {
+        return participantsAmount;
+    }
+
+    public String getStartLocation() {
+        return startLocation;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
     }
 }
