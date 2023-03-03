@@ -8,6 +8,8 @@ import com.ssummit.repository.RouteRepository;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.time.LocalDateTime;
+
 @Service
 public class RouteService extends GenericService<Route>{
 	private final RouteRepository repository;
@@ -28,21 +30,24 @@ public class RouteService extends GenericService<Route>{
 
 	@Override
 	public Route create(Route route) {
-		route.setCreatedBy("ADMIN");
-		route.setUpdatedBy("ADMIN");
+		route.setCreatedBy("OTLADKA");
+		route.setCreatedDateTime(LocalDateTime.now());
 		return super.create(route);
 	}
 
 	@Override
 	public Route update(Route route) {
-		route.setUpdatedBy("ADMIN");
+		route.setUpdatedBy("OTLADKA");
+		route.setUpdatedDateTime(LocalDateTime.now());
 		return super.update(route);
 	}
 
 	@Override
 	public void delete(Long id) {
 		Route route = repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + "not found"));
-		route.setUpdatedBy("ADMIN");
+		route.setDeletedBy("OTLADKA");
+		route.setIsDeleted(true);
+		route.setDeletedDateTime(LocalDateTime.now());
 		super.update(route);
 	}
 }

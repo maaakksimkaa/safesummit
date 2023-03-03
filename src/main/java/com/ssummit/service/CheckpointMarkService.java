@@ -7,39 +7,38 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CheckpointMarkService {
-	private final CheckpointMarkRepository repository;
+    private final CheckpointMarkRepository repository;
 
-	protected CheckpointMarkService(CheckpointMarkRepository repository) {
-		this.repository = repository;
-	}
+    protected CheckpointMarkService(CheckpointMarkRepository repository) {
+        this.repository = repository;
+    }
 
-	public List<CheckpointMark> getList() {
-		return repository.findAll();
-	}
+    public List<CheckpointMark> getList() {
+        return repository.findAll();
+    }
 
-	public CheckpointMark getOne(Long id) {
-		return repository.findById(id).orElseThrow();
-	}
+    public CheckpointMark getOne(Long id) {
 
-	public CheckpointMark create(CheckpointMark object) {
-		return repository.save(object);
-	}
+        return repository.findById(id).orElseThrow();
+    }
 
-	public CheckpointMark update(CheckpointMark object) {
-		return repository.save(object);
-	}
+    public CheckpointMark create(CheckpointMark object) {
+        return repository.save(object);
+    }
 
-	public CheckpointMark markCheckpoint(MarkCheckpointDto markCheckpointDto) {
-		LocalDateTime actualMarkTime = markCheckpointDto.getActualMarkedTime();
-		CheckpointMark checkpointMark = repository.findById(markCheckpointDto.getCheckpointMarkId()).orElseThrow();
-		checkpointMark.setActualMarkedTime(actualMarkTime);
-		return update(checkpointMark);
-	}
-	public CheckpointMark activeCheckpointMark() {
-		return repository.findFirstByScheduledMarkedTimeAndActualMarkedTimeAfterOrderByActualMarkedTimeAsc(null,LocalDateTime.now());
-	}
+    public CheckpointMark update(CheckpointMark object) {
+
+        return repository.save(object);
+    }
+
+    public CheckpointMark markCheckpoint(MarkCheckpointDto markCheckpointDto) {
+        LocalDateTime actualMarkTime = markCheckpointDto.getActualMarkedTime();
+        CheckpointMark checkpointMark = repository.findById(markCheckpointDto.getCheckpointMarkId()).orElseThrow();
+        checkpointMark.setActualMarkedTime(actualMarkTime);
+        return update(checkpointMark);
+    }
+
 }

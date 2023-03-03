@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
-@Lazy
+//@Lazy
 @EnableGlobalMethodSecurity(securedEnabled = true,
         jsr250Enabled = true,
         prePostEnabled = true)
@@ -39,7 +39,7 @@ public class JwtSecurityConfig
             "/js/**",
             "/api/authorization",
             "/api/registration",
-            "/api/update"
+            "/user/restore-password"
     };
 
     private final JwtTokenFilter jwtTokenFilter;
@@ -71,25 +71,29 @@ public class JwtSecurityConfig
                 ))
                 .and().authorizeRequests()
                 //Доступ только для авторизованных пользователей
-                .antMatchers("/tour/tour_description/{tourId}",
+                .antMatchers(
+                        "/tour/tour_description/{tourId}",
                         "/user/tour-revoke",
-                        "/user/scheduled_tours",
+                        "/user/scheduled-tours",
                         "/tour/tour-register",
-                        "/user/restore-password",
                         "/user//change-password",
                         "/user/registration",
                         "/user/create-spectator",
                         "/update/{id}",
-                        "/get/{id}").hasRole("PARTICIPANT")
-                .antMatchers("/tour/set-route",
+                        "/get/{id}")
+                .hasRole("PARTICIPANT")
+                .antMatchers(
+                        "/tour/set-route",
                         "/tour/tour_equipment/{tourId}",
                         "/tour/tour-get-guides-and-participants/{tourId}")
                 .hasRole("GUIDE")
-                .antMatchers("/tour/tour_checkpoints_marks/{tourId}",
+                .antMatchers(
+                        "/tour/tour_checkpoints_marks/{tourId}",
                         "/tour/tour-last-checkpoint/{tourId}",
                         "/user/restore-password")
                 .hasRole("SPECTATOR")
-                .antMatchers("/user/**",
+                .antMatchers(
+                        "/user/**",
                         "/tour/**",
                         "/tour-equipment/**",
                         "/tour-application/**",

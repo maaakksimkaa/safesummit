@@ -42,15 +42,15 @@ public class AuthController {
         this.roleRepository = roleRepository;
     }
 
-    @Operation(description = "Обновить запись", method = "Update")
-    @PutMapping("/update")
-    public void update() {
-        List<User> users = userRepository.findAll();
-        for (User user : users) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-        }
-    }
+//    @Operation(description = "Обновить запись", method = "Update")
+//    @PutMapping("/update")
+//    public void update() {
+//        List<User> users = userRepository.findAll();
+//        for (User user : users) {
+//            user.setPassword(passwordEncoder.encode(user.getPassword()));
+//            userRepository.save(user);
+//        }
+//    }
 
     @PostMapping("/registration")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {

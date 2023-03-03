@@ -9,6 +9,8 @@ import com.ssummit.repository.TourApplicationRepository;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.time.LocalDateTime;
+
 @Service
 public class TourApplicationService extends GenericService<TourApplication> {
 	private final TourApplicationRepository repository;
@@ -50,21 +52,25 @@ public class TourApplicationService extends GenericService<TourApplication> {
 
 	@Override
 	public TourApplication create(TourApplication tourApplication) {
-		tourApplication.setCreatedBy("ADMIN");
-		tourApplication.setUpdatedBy("ADMIN");
+		tourApplication.setIsDeleted(false);
+		tourApplication.setCreatedBy("OTLADKA");
+		tourApplication.setCreatedDateTime(LocalDateTime.now());
 		return super.create(tourApplication);
 	}
 
 	@Override
 	public TourApplication update(TourApplication tourApplication) {
-		tourApplication.setUpdatedBy("ADMIN");
+		tourApplication.setUpdatedBy("OTLADKA");
+		tourApplication.setUpdatedDateTime(LocalDateTime.now());
 		return super.update(tourApplication);
 	}
 
 	@Override
 	public void delete(Long id) {
 		TourApplication tourApplication = repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + "not found"));
-		tourApplication.setUpdatedBy("ADMIN");
+		tourApplication.setDeletedBy("OTLADKA");
+		tourApplication.setIsDeleted(true);
+		tourApplication.setDeletedDateTime(LocalDateTime.now());
 		super.update(tourApplication);
 	}
 
