@@ -38,8 +38,8 @@ public class JwtSecurityConfig
             "/img/**",
             "/js/**",
             "/api/authorization",
-            "/user/registration",
-            "/user/updatePassword"
+            "/api/registration",
+            "/api/update"
     };
 
     private final JwtTokenFilter jwtTokenFilter;
