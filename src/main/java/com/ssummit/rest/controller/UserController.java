@@ -63,7 +63,7 @@ public class UserController extends GenericController<User, UserDto> {
     }
 
     @Operation(description = "Просмотреть список туров, в которых участвует пользователь")
-    @GetMapping("/scheduled_tours")
+    @GetMapping("/scheduled-tours")
     public List<UserWithToursDto> getScheduledTours() {
         return service.listAll().stream().map(userWithToursMapper::toDto).toList();
     }

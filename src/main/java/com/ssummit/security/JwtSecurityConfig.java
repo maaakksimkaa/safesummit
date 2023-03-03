@@ -71,9 +71,9 @@ public class JwtSecurityConfig
                 ))
                 .and().authorizeRequests()
                 //Доступ только для авторизованных пользователей
-                .antMatchers("/tour/tour_description/{tourId}",
+                .antMatchers("/tour/tour-description/{tourId}",
                         "/user/tour-revoke",
-                        "/user/scheduled_tours",
+                        "/user/scheduled-tours",
                         "/tour/tour-register",
                         "/user/restore-password",
                         "/user//change-password",
@@ -82,15 +82,27 @@ public class JwtSecurityConfig
                         "/update/{id}",
                         "/get/{id}").hasRole("PARTICIPANT")
                 .antMatchers("/tour/set-route",
-                        "/tour/tour_equipment/{tourId}",
+                        "/tour/tour-equipment/{tourId}",
                         "/tour/tour-get-guides-and-participants/{tourId}")
                 .hasRole("GUIDE")
-                .antMatchers("/tour/tour_checkpoints_marks/{tourId}",
+                .antMatchers("/tour/tour-checkpoints-marks/{tourId}",
                         "/tour/tour-last-checkpoint/{tourId}",
                         "/user/restore-password")
                 .hasRole("SPECTATOR")
                 .antMatchers("/user/**",
-                        "/tour/**",
+                        "/tour/tour-get-guides-and-participants/{tourId}",
+                        "/tour/tour-last-checkpoint/{tourId}",
+                        "/tour/tour-checkpoints-marks/{tourId}",
+                        "/tour/schedule-a-tour",
+                        "/tour/set-primary-guide",
+                        "/tour/set-secondary-guide",
+                        "/tour/set-route",
+                        "/tour/tour-set-checkpoint-scheduled-marked-time",
+                        "/tour/tour-get-scheduled-tours",
+                        "/tour/tour-get-required-equipment/{tourId}",
+                        "/tour/tour-fill-tour-application{tourId}",
+                        "/tour/tour-final-check/{tourId}",
+                        "/tour/tour-description/{tourId}",
                         "/tour-equipment/**",
                         "/tour-application/**",
                         "/route/**",

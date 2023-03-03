@@ -2,10 +2,10 @@ package com.ssummit.service;
 
 import com.aspose.words.Document;
 import com.aspose.words.ReportingEngine;
-import com.ssummit.TourApplicationTemplateFiller;
 import com.ssummit.model.Tour;
 import com.ssummit.model.TourApplication;
 import com.ssummit.repository.TourApplicationRepository;
+import com.ssummit.util.TourApplicationTemplateFiller;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -37,7 +37,7 @@ public class TourApplicationService extends GenericService<TourApplication> {
 		try {
 			reportingEngine.buildReport(doc, tourApplicationTemplateFiller, "s");
 		} catch (Exception e) {
-			return "Не удалось заполнить шаблон заявки" + e.getMessage();
+			return "Не удалось заполнить шаблон заявки";
 		}
 		try {
 			doc.save(tour.getTitle() + "_заявка в МЧС.docx");

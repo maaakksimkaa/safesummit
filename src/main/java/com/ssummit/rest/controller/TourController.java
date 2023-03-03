@@ -84,7 +84,7 @@ public class TourController extends GenericController<Tour, TourDto> {
 	}
 
 	@Operation(description = "Просмотреть список контрольных точек похода")
-	@GetMapping("/tour-checkpoints_marks/{tourId}")
+	@GetMapping("/tour-checkpoints-marks/{tourId}")
 	public Map<String, LocalDateTime> getCheckpointsMarks(@PathVariable Long tourId) {
 		return service.getScheduledCheckpointMarks(tourId);
 	}
@@ -121,7 +121,7 @@ public class TourController extends GenericController<Tour, TourDto> {
 	}
 
 	@Operation(description = "Заполнить заявку на регистрацию в МЧС")
-	@GetMapping("/tour-fill-tour-application{tourId}")
+	@PostMapping("/tour-fill-tour-application{tourId}")
 	public String addTourApplication(@PathVariable Long tourId) {
 		return tourApplicationService.sendTourApplication(tourId);
 	}

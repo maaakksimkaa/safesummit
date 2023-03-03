@@ -1,4 +1,4 @@
-package com.ssummit;
+package com.ssummit.util;
 
 import com.ssummit.model.Tour;
 import com.ssummit.model.TourApplication;
