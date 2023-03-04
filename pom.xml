@@ -50,10 +50,6 @@
             <version>3.1.0</version>
         </dependency>
         <!--	Java 8 Date/time	-->
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-        </dependency>
         <!--	Java 8 Datatypes	-->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -168,6 +164,7 @@
             <artifactId>json</artifactId>
             <version>20220924</version>
         </dependency>
+
 
         <dependency>
             <groupId>com.aspose</groupId>

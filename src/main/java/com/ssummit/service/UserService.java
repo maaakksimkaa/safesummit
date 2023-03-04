@@ -148,7 +148,6 @@ public class UserService extends GenericService<User> {
 	}
 
 	public boolean checkPassword(LoginDTO loginDTO) {
-		System.out.println(loginDTO);
 		return bCryptPasswordEncoder.matches(loginDTO.getPassword(),
 				getByUserName(loginDTO.getLogin()).getPassword());
 	}
