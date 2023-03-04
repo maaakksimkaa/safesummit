@@ -35,11 +35,17 @@ public class UserController extends GenericController<User, UserDto> {
         this.userMapper = userMapper;
     }
 
-    @PostMapping("/create-guide")
-    public String createGuide(@RequestBody UserDto userDto) {
-        service.createGuide(mapper.toEntity(userDto));
-        return "Гид создан успешно!";
-    }
+	@PostMapping("/registration")
+	public String registration(@RequestBody UserDto userDto) {
+		service.create(mapper.toEntity(userDto));
+		return "Регистрация успешна!";
+	}
+
+	@PostMapping("/create-guide")
+	public String createGuide(@RequestBody UserDto userDto) {
+		service.createGuide(mapper.toEntity(userDto));
+		return "Гид создан успешно!";
+	}
 
     @PostMapping("/create-spectator")
     public String createSpectator(@RequestBody UserDto userDto) {
@@ -60,7 +66,7 @@ public class UserController extends GenericController<User, UserDto> {
     }
 
     @Operation(description = "Просмотреть список туров, в которых участвует пользователь")
-    @GetMapping("/scheduled-tours")
+    @GetMapping("/scheduled_tours")
     public List<UserWithToursDto> getScheduledTours() {
         return service.listAll().stream().map(userWithToursMapper::toDto).toList();
     }

@@ -5,7 +5,6 @@ import com.ssummit.repository.GenericRepository;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
-import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,42 +18,46 @@ import java.util.List;
 @Service
 public abstract class GenericService<T extends GenericModel> {
 
-	//Инжектим абстрактный репозиторий для работы с базой данных
-	private final GenericRepository<T> repository;
+    //Инжектим абстрактный репозиторий для работы с базой данных
+    private final GenericRepository<T> repository;
 
-	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-	protected GenericService(GenericRepository<T> repository) {
-		this.repository = repository;
-	}
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    protected GenericService(GenericRepository<T> repository) {
+        this.repository = repository;
+    }
 
-	public List<T> listAll() {
-		return repository.findAll().stream().filter(obj -> !obj.getIsDeleted()).toList();
-	}
+    public List<T> listAll() {
+        return repository.findAll().stream().filter(obj -> !obj.getIsDeleted()).toList();
+    }
 
-	public T getOne(Long id) {
-		T object = repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + " not found"));
-		if (object.getIsDeleted()) {
-			throw new NotFoundException("Row with such ID: " + id + " was deleted");
-		}
-		return object;
-	}
+    public T getOne(Long id) {
+        T object = repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + " not found"));
+        if (object.getIsDeleted()) {
+            throw new NotFoundException("Row with such ID: " + id + " was deleted");
+        }
+        return object;
+    }
 
-	public T create(T object) {
-		object.setIsDeleted(false);
-		object.setCreatedDateTime(LocalDateTime.now());
-		object.setUpdatedDateTime(LocalDateTime.now());
-		return repository.save(object);
-	}
+    public T create(T object) {
+        object.setIsDeleted(false);
+        object.setCreatedBy("OTLADKA");
+        object.setCreatedDateTime(LocalDateTime.now());
+//		object.setUpdatedDateTime(LocalDateTime.now());
+        return repository.save(object);
+    }
 
-	public T update(T object) {
-		object.setUpdatedDateTime(LocalDateTime.now());
-		return repository.save(object);
-	}
+    public T update(T object) {
+        object.setUpdatedBy("OTLADKA");
+        object.setUpdatedDateTime(LocalDateTime.now());
+        return repository.save(object);
+    }
 
-	public void delete(Long id) {
-		T object = repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + " not found"));
-		object.setIsDeleted(true);
-		repository.save(object);
-	}
+    public void delete(Long id) {
+        T object = repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + " not found"));
+        object.setDeletedBy("OTLADKA");
+        object.setIsDeleted(true);
+        object.setDeletedDateTime(LocalDateTime.now());
+        repository.save(object);
+    }
 
 }

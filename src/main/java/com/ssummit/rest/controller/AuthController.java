@@ -43,11 +43,9 @@ public class AuthController {
     @PostMapping("/authorization")
     public ResponseEntity<?> auth(@RequestBody LoginDTO loginDto) {
         Map<String, Object> response = new HashMap<>();
-
-        if(!userService.checkPassword(loginDto)) {
+        if (!userService.checkPassword(loginDto)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized user!\nWrongPassword");
         }
-
         UserDetails foundUser = customUserDetailsService.loadUserByUsername(loginDto.getLogin());
         String token = jwtTokenUtil.generateToken(foundUser);
         response.put("token", token);

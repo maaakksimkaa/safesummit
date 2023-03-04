@@ -13,7 +13,7 @@ public class SafeSummitApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SafeSummitApplication.class, args);
-		log.info("Swagger-ui runs at: http://localhost:3939/swagger-ui/index.html");
+		log.info("Swagger-ui runs at: http://localhost:9292/swagger-ui/index.html");
 	}
 
 }

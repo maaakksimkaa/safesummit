@@ -49,20 +49,25 @@ public class TourService extends GenericService<Tour> {
         tour.setRoute(routeRepository.findById(scheduleTourDto.getRouteId()).orElseThrow());
         tour.setStartDate(scheduleTourDto.getStartDate());
         tour.setEndDate(scheduleTourDto.getStartDate().plusDays(tour.getRoute().getDuration()));
-        tour.setCreatedBy("ADMIN");
+        tour.setIsDeleted(false);
+        tour.setCreatedBy("OTLADKA");
+        tour.setCreatedDateTime(LocalDateTime.now());
         return create(tour);
     }
 
     @Override
     public Tour update(Tour tour) {
-        tour.setUpdatedBy("ADMIN");
+        tour.setUpdatedBy("OTLADKA");
+        tour.setUpdatedDateTime(LocalDateTime.now());
         return super.update(tour);
     }
 
     @Override
     public void delete(Long id) {
         Tour tour = repository.findById(id).orElseThrow(() -> new NotFoundException("Row with such ID: " + id + "not found"));
-        tour.setUpdatedBy("ADMIN");
+        tour.setDeletedBy("OTLADKA");
+        tour.setIsDeleted(true);
+        tour.setDeletedDateTime(LocalDateTime.now());
         super.update(tour);
     }
 
@@ -76,6 +81,8 @@ public class TourService extends GenericService<Tour> {
                 -> new NotFoundException("Пользователь с таким ID: " + addTourDto.getUserId() + " не найден"));
         Tour tour = getOne(addTourDto.getTourId());
         tour.setPrimaryGuide(user);
+        tour.setUpdatedBy("OTLADKA");
+        tour.setUpdatedDateTime(LocalDateTime.now());
         return update(tour);
     }
 
@@ -84,6 +91,8 @@ public class TourService extends GenericService<Tour> {
                 -> new NotFoundException("Пользователь с таким ID: " + addTourDto.getUserId() + " не найден"));
         Tour tour = getOne(addTourDto.getTourId());
         tour.setSecondaryGuide(user);
+        tour.setUpdatedBy("OTLADKA");
+        tour.setUpdatedDateTime(LocalDateTime.now());
         return update(tour);
     }
 
@@ -92,6 +101,8 @@ public class TourService extends GenericService<Tour> {
         Route route = routeRepository.findById(addRouteDto.getRouteId()).orElseThrow(()
                 -> new NotFoundException("Маршрут с таким ID: " + addRouteDto.getRouteId() + " не найден"));
         tour.setRoute(route);
+        tour.setUpdatedBy("OTLADKA");
+        tour.setUpdatedDateTime(LocalDateTime.now());
         return update(tour);
     }
 
@@ -103,6 +114,8 @@ public class TourService extends GenericService<Tour> {
         checkpointMark.setScheduledMarkedTime(addCheckpointMarkDto.getScheduledMarkedTime());
         checkpointMarkService.create(checkpointMark);
         tour.getCheckpointMarks().add(checkpointMark);
+        tour.setUpdatedBy("OTLADKA");
+        tour.setUpdatedDateTime(LocalDateTime.now());
         return update(tour);
     }
 

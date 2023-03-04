@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +39,7 @@ public class UserService extends GenericService<User> {
 	public User create(User user) {
 		user.setCreatedBy("REGISTRATION");
 		user.setRole(roleService.getOne(2L));
+		user.setCreatedDateTime(LocalDateTime.now());
 		//user.setPassword();
 		return repository.save(user);
 	}
@@ -46,6 +48,7 @@ public class UserService extends GenericService<User> {
 		user.setCreatedBy("ADMIN");
 		user.setIsDeleted(false);
 		user.setRole(roleService.getOne(3L));
+		user.setCreatedDateTime(LocalDateTime.now());
 		//user.setPassword();
 		return repository.save(user);
 	}
@@ -54,6 +57,7 @@ public class UserService extends GenericService<User> {
 		user.setCreatedBy("пользователь" /* должен прописываться пользователь, создавший этого наблюдателя */);
 		user.setIsDeleted(false);
 		user.setRole(roleService.getOne(4L));
+		user.setCreatedDateTime(LocalDateTime.now());
 		//user.setPassword();
 		return repository.save(user);
 	}
@@ -71,6 +75,8 @@ public class UserService extends GenericService<User> {
 				"Вы успешно зарегистрировались на тур\n "
 						+ tour.getDescription() + ". Дата начала: " + tour.getStartDate());
 		javaMailSender.send(message);
+		user.setUpdatedBy("OTLADKA");
+		user.setUpdatedDateTime(LocalDateTime.now());
 		return update(user);
 	}
 
@@ -83,6 +89,8 @@ public class UserService extends GenericService<User> {
 				"Вы отменили участие в туре\n "
 						+ tour.getDescription() + ". Дата начала: " + tour.getStartDate());
 		javaMailSender.send(message);
+		user.setUpdatedBy("OTLADKA");
+		user.setUpdatedDateTime(LocalDateTime.now());
 		return update(user);
 	}
 
@@ -108,6 +116,8 @@ public class UserService extends GenericService<User> {
 		User user = getUserByEmail(email);
 
 		user.setChangePasswordToken(uuid.toString());
+		user.setUpdatedBy(user.getLogin());
+		user.setUpdatedDateTime(LocalDateTime.now());
 		update(user);
 		SimpleMailMessage message = createMessage(email,
 				"Восстановление пароля на сайте SafeSummit",
@@ -132,6 +142,8 @@ public class UserService extends GenericService<User> {
 		User user = findByToken(uuid);
 		user.setChangePasswordToken(null);
 		user.setPassword(bCryptPasswordEncoder.encode(password));
+		user.setUpdatedBy(user.getLogin());
+		user.setUpdatedDateTime(LocalDateTime.now());
 		update(user);
 	}
 

@@ -39,7 +39,7 @@ public class JwtSecurityConfig
             "/js/**",
             "/api/authorization",
             "/api/registration",
-            "/api/update"
+            "/user/restore-password"
     };
 
     private final JwtTokenFilter jwtTokenFilter;
@@ -47,7 +47,7 @@ public class JwtSecurityConfig
     public JwtSecurityConfig(JwtTokenFilter jwtTokenFilter) {
         this.jwtTokenFilter = jwtTokenFilter;
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
-   }
+    }
 
     @Bean
     public SecurityFilterChain filterChainJwt(HttpSecurity http) throws Exception {
